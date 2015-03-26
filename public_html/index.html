@@ -29,7 +29,7 @@
 					<td>
 						<div style="text-align:center;">
 							<font size="3">
-							Feats
+							Features
 							</font>
 						</div>
 						<table align="center" width="300px" height="100px"border="1" rules="none" frame="box" style="text-align:center; background-color:gainsboro">
@@ -67,6 +67,9 @@
 		 <p>
 		 <div style ="text-align:center; size: 4;"><input type="radio" name="stats" value="GenSta" checked>Generate Stats <input type="radio" name="stats" value="pointB">Point Buy  <button type="button" id="load" value="Stats" style="width:100px; height:20px"> ok</button></div>
 		   <p></p>
+		   <!-- Generate stats: roll 4 D6 and discard the lowest 6 times, display table with results, table is clickable make boxes clickable.-->
+		   <!-- Point Buy: 8 is displayed in the boxes and a + or - button is shown in the bottom corners they are clickable. there is a total amount do not exceed.-->
+		   <!-- second box is calculated based off the first box.-->
 		  <table style="width:100%">
 		  <tr>
 			  <td></td>
@@ -93,7 +96,7 @@
 			</td>
 				 <td>
 				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center"> 
+					<div style="color:white; text-align: center"> <!-- this needs ids-->
 						<p>INT</p> 
 						<p>Inteligence</p>
 					 </div>
@@ -167,43 +170,43 @@
 			</td>
 		   </tr>
 		</table>
-		 </p>
 		 <p></p>
 	</div>
 		 <p>
 		 <div style="background-color:LimeGreen">
 			 <table style="width:100%">
 				<tr>
-				<div style="position:relative; left=-10px; font-family:Papyrus">
+				<!-- skill modifier box should equal the skill modifier from above.-->
+				<div style="position:relative; font-family:Papyrus">
 					<td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td><td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td><td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td>
 				</div>
 				</tr>
 			 </table>
 			 </p>
 			 <hr style="color:black">
-			 <div style="background-color:LimeGreen; height:300px; overflow:auto">
+			 <div style="background-color:LimeGreen;">
 			  <table style="width:95%">
 			  	<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Alchemy
+						<input type="checkbox" name="Alchemy" value="alchemy"> Acrobatics
 					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Animal Empathy
-					</td>
-					<td style="padding:10px">
-						CHA
+					<td style="padding:10px"><!-- these need ids -->
+						DEX
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Appraise
+						<input type="checkbox" name="Alchemy" value="alchemy"> Animal Handling
+					</td>
+					<td style="padding:10px">
+						WIS
+					</td>
+					<td style= "padding: 10px; border-right: thin solid; border-color:black">
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
+					</td>
+					<td style="padding:15px">
+						<input type="checkbox" name="Alchemy" value="alchemy"> Arcana
 					</td>
 					<td style="padding:10px">
 						INT
@@ -213,16 +216,16 @@
 					</td>
 					</tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Balance
+						<input type="checkbox" name="Alchemy" value="alchemy"> Athletics
 					</td>
 					<td style="padding:10px">
-						DEX
+						STR
 					</td>
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px;">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Bluff
+						<input type="checkbox" name="Alchemy" value="alchemy"> Deception
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -231,134 +234,18 @@
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Climb
-					</td>
-					<td style="padding:10px">
-						STR
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Concentration
-					</td>
-					<td style="padding:10px">
-						CON
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Craft
-					</td>
-					<td style="padding:10px">
-						___
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Craft
-					</td>
-					<td style="padding:10px">
-						___
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Craft
-					</td>
-					<td style="padding:10px">
-						___
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Decipher Script
+						<input type="checkbox" name="Alchemy" value="alchemy"> History
 					</td>
 					<td style="padding:10px">
 						INT
 					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Diplomacy
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
 					<td style= "padding: 10px;">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Disable Device
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Disguise 
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Escape Artist
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Forgery
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Gather Information
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Heal Animal
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Heal
+						<input type="checkbox" name="Alchemy" value="alchemy"> Insight
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -367,16 +254,45 @@
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Hide
+						<input type="checkbox" name="Alchemy" value="alchemy"> Intimidation
 					</td>
 					<td style="padding:10px">
-						DEX
+						CHA
 					</td>
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> innuendo
+						<input type="checkbox" name="Alchemy" value="alchemy"> Investigation
+					</td>
+					<td style="padding:10px">
+						INT
+					</td>
+					<td style= "padding: 10px;">
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding:15px">
+						<input type="checkbox" name="Alchemy" value="alchemy"> Medicine
+					</td>
+					<td style="padding:10px">
+						WIS
+					</td>
+					<td style= "padding: 10px; border-right: thin solid; border-color:black">
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
+					</td>
+					<td style="padding:15px">
+						<input type="checkbox" name="Alchemy" value="alchemy"> Nature
+					</td>
+					<td style="padding:10px">
+						INT
+					</td>
+					<td style= "padding: 10px;border-right: thin solid; border-color:black">
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
+					</td>
+						<td style="padding:15px">
+						<input type="checkbox" name="Alchemy" value="alchemy"> Perception
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -387,7 +303,7 @@
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Intimidate
+						<input type="checkbox" name="Alchemy" value="alchemy"> Performance
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -396,94 +312,36 @@
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Intuit Direction
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Jump
-					</td>
-					<td style="padding:10px">
-						STR
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Knowledge (Arcana)
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Knowledge (Nature)
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Knowledge(Religion)
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Listen
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Move Silently
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Open Lock
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy">Perform
+						<input type="checkbox" name="Alchemy" value="alchemy"> Persuasion
 					</td>
 					<td style="padding:10px">
 						CHA
 					</td>
+					<td style= "padding: 10px;border-right: thin solid; border-color:black">
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
+					</td>
+						<td style="padding:15px">
+						<input type="checkbox" name="Alchemy" value="alchemy"> Religion
+					</td>
+					<td style="padding:10px">
+						INT
+					</td>
+					<td style= "padding: 10px;">
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
+					</td>
+				</tr>
+				<tr>
+					<td style="padding:15px">
+						<input type="checkbox" name="Alchemy" value="alchemy"> Sleight of Hand
+					</td>
+					<td style="padding:10px">
+						DEX
+					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Pick Pocket
+						<input type="checkbox" name="Alchemy" value="alchemy"> Stealth
 					</td>
 					<td style="padding:10px">
 						DEX
@@ -492,153 +350,7 @@
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Profession ______
-					</td>
-					<td style="padding:10px">
-						___
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Profession ______
-					</td>
-					<td style="padding:10px">
-						___
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Profession ______
-					</td>
-					<td style="padding:10px">
-						___
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Read Lips
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Ride
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Scry
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Search
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-								<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Sense Motvie
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Speak Language
-					</td>
-					<td style="padding:10px">
-						None
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Spellcraft
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Spot
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Swim
-					</td>
-					<td style="padding:10px">
-						STR
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Tumble
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Use Magic Device
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Use Rope
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Wilderness Lore
+						<input type="checkbox" name="Alchemy" value="alchemy"> Survival
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -662,6 +374,8 @@
 						 <form action="">
 							<div style ="text-align:center; size: 4;"><input type="radio" name="Equip" value="GenGol" checked>Generate gold <input type="radio" name="Equip" value="classEquip">Class Equipment <button type="button" id="load" value="gold" style="width:100px; height:20px"> ok</button></div>
 						  </form>
+						  <!-- Generate-->
+						  <!-- Class Equipment generates gold and equipment -->
 						</td>
 					</tr>
 					</table>
@@ -692,12 +406,16 @@
 			 </p>
 			 <div style="background-color: DarkGreen">
 				 <font size="5">
-				 <h6>Background</h6>
+				 <h6 style = "text-align:center">Background</h6>
 				 </font>
 				 <p>
+				 <table style= "width:100%">
+				 <tr>
+				 <td>
 					<form action="">
 					<input type="checkbox" id="background" >Custom Background <button type="button" id="load" value="gold" style="width:100px; height:20px"> ok</button>
 					</form>
+					<!--  when button is clicked custom background appears otherwise it is not there.-->
 					<p></p>
 						<div id="cutom">
 							<textarea rows="10" cols="50" >
@@ -705,6 +423,8 @@
 							</textarea>
 						</div>
 					<p></p>
+					</td>
+					<td>
 					Personality: 
 					<select style="width: 400px;">
 					  <option value="start">Please Select Personality</option>
@@ -738,6 +458,9 @@
 					 </select>
 				 </p>
 				 <p></p>
+				 </td>
+				 </tr>
+				 </table>
 			</div>
 			 <font size="5">
 				<h7> Feats</h7>
@@ -751,6 +474,7 @@
 				  <option value="three">Feat 3</option>
 				 </select>
 			 </p>
+			 <!-- when a feat is selected it is put in the feats box in the top-->
 			 </div>
 			<div style="background-color:Green">
 				<div style="text-align:center;font-family:Papyrus">
@@ -789,9 +513,7 @@
 								<tr>
 									level 0 Spells
 								</tr>
-								<tr>
-									<hr style="color:black">
-								</tr>
+									<!-- need to make it move from one to the other.-->
 								<tr>
 									<td>
 										Heal
@@ -823,6 +545,7 @@
 				<p></p>
 			</div>
 			<div align="center"> <button type="button" value="Save" style="width:700px; height:80px; font-size:40px;"> Save</button></div>
+			<!-- write to a file.-->
 			</div>
 		</body>
 </html>
