@@ -4,6 +4,9 @@
 	<div style="font-family:Papyrus">
 	<head>
 	  <title>Character Builder</title>
+          <style>
+              var canSee="hidden"
+          </style>
         </head>
 		<body>
 		<p></p>
@@ -497,11 +500,11 @@
 				 <tr>
 				 <td>
 					<form action="">
-					<input type="checkbox" id="background" >Custom Background <button type="button" id="load" value="gold" style="width:100px; height:20px"> ok</button>
+					<input type="checkbox" id="background" >Custom Background <button type="button" id="load" value="gold" style="width:100px; height:20px" onclick="showcustom(background)"> ok</button>
 					</form>
 					<!--  when button is clicked custom background appears otherwise it is not there.-->
 					<p></p>
-						<div id="cutom">
+						<div id="cutom" style="visibility:canSee">
 							<textarea rows="10" cols="50" >
 							please enter your custom background.
 							</textarea>
@@ -510,40 +513,83 @@
 					</td>
 					<td>
 					Personality: 
-					<select style="width: 400px;">
+					<select style="width: 600px; overflow: auto">
 					  <option value="start">Please Select Personality</option>
 					  <option>Idolize a particular hero of your faith, and constantly refer to that person's deeds and example</option>
 					  <option>Can find common ground between the fiercest enemies, empathizing with them and always working toward peace.</option>
 					  <option>sees omens in every even and action. The gods try to speak to us, we just need to listen</option>
                                           <option>Nothing can shake my optimisitc attitude.</option>
                                           <option>Quotes (or misquotes) sacred texts and provers in almost every situation.</option>
-                                          <option>is tolerant(or intolerant) of other faiths and repspect(or condemn) the worship of other gods.</option>
+                                          <option>is tolerant(or intolerant) of other faiths and respect(or condemn) the worship of other gods.</option>
                                           <option>Has enjoyed fine food, drink and high society among their temple's elite. Rough living grates on them.</option>
-                                          <option>Has spent so much time in the temple that they have litle practical experience dealing with people in the outside world</option>
-					 </select>
+                                          <option>Has spent so much time in the temple that they have little practical experience dealing with people in the outside world</option>
+                                          <option>falls in and out of love easily, and is always pursuing someone</option>
+                                          <option>has a joke for every occasion, expecially occasions where humor is inappropriate.</option>
+                                          <option>flattery is their preferred trick for getting what they want.</option>
+                                          <option>a born gambler who can't resist taking a risk for a potential payoff</option>
+                                          <option>sarcasm and insults are their weapons of choice</option>
+                                          <option>keeps multipl holy symbols on them and invoke whatever deity might come in useful at any given moment</option>
+                                          <option>pockets anything that might have some value</option>
+                                          <option>always has a plan for what to do when things go wrong</option>
+                                          <option>always calm, no matter what the situation. Never raises their voice or lets the emotions control them.</option>
+                                          <option>would rather make a new friend than a new enemy</option>
+                                          <option>incredibly slow to trust. Those who seem the fairest often have the most to hide</option>
+                                          <option>doesn't pay attention to the risks in a situation.</option>
+                                          <option>the best way to get them to do something is to tell them they can't do it</option>
+                                          <option>blows up at the slightest insult</option>
+					 <</select>
 					 <p></p>
 					Ideals: 
-					<select style="width: 400px;">
+					<select style="width: 600px; overflow:auto">
 					  <option value="start">Please Select an Ideal</option>
-                                          <option value="one"> <b>Tradition.</b> The ancient traditions of worship and sacrifice must be preserved and upheld (Lawful)</option>
-					  <option value="two">Ideal 2</option>
-					  <option value="three">Ideal 3</option>
+                                          <option> <b>Tradition.</b> The ancient traditions of worship and sacrifice must be preserved and upheld (Lawful)</option>
+					  <option>Charity. always tries to help those in need, no mater what the personal cost.(good)</option>
+					  <option>Change.belives they must help bring about the changes the gods are constantly working in the world. (Chaotic)</option>
+                                          <option>power. hopes to one day rise to the top of their faith's religious hierarchy. (Lawful)</option>
+                                          <option>Faith. trusts that their diety will guide my actions. the have faith that if they work hard, things will go well (Lawful)</option>
+                                          <option>Aspitation. Seeks to prove themself worthy of their god's favor by matching their actions againt his or her teachings(Any) </option>
+                                          <option>Independence. a free spirit-no on tells them what to do (Chaotic)</option>
+                                          <option>Fairness. never targets people who can't afford to lose a few coins. (Lawful)</option>
+                                          <option>Charity. distributes the money they acquired to the people who really need it.</option>
+                                          <option>Friendship. Material goods come and go. Bonds of friendship last forever. (Good)</option>
+                                          <option>Aspitation. determined to make something of themselves (Any)</option>
+                                          <option>Honor. doesn't steal from others in the trade. (Lawful)</option>
 					 </select>
 					 <p></p>
 					 Bond: 
-					<select style="width: 400px;">
+					<select style="width: 500px; overflow: auto">
 					  <option value="start">Please Select Bond</option>
-					  <option value="one">Bond 1</option>
-					  <option value="two">Bond 2</option>
-					  <option value="three">Bond 3</option>
+					  <option>would die to recover an ancient relic of my faith that was lost long ago</option>
+					  <option>Hopes to someday get revenge on the corrupt temple hierarchy who branded them a heretic</option>
+					  <option>owes thei life to the priest who took them in when their parents died</option>
+                                          <option> Everthing they do is for the common people.</option>
+                                          <option> will do anything to protect the temple where they served</option>
+                                          <option> seeks to preserve a sacred text that their enemies consider heretical and seek to destroy</option>
+                                          <option>fleeced the wrong person and must work to ensure that this individual never crosses pathes with them or those they care about</option>
+                                          <option>owes everyting to their mentor - a horrible person who's probably rotting in jail somewhere.</option>
+                                          <option>has a chil somewhere out there who doesn't know them and is making the world a better place for him or her</option>
+                                          <option>comes from a noble family and one day will reclaim their lands and title from those who stole them</option>
+                                          <option>a powerful person killed someone they loved, one day soon they will get their revenge</option>
+                                          <option>swindled and ruined a person who didn't deserve it and now seeks to atone for their misdeeds but might never be able to forgive themselves</option>
+                                          
 					 </select>
 					 <p></p>
 					 Flaw: 
-					<select style="width: 400px;">
+					<select style="width: 400px; overflow: auto">
 					  <option value="start">Please Select a Flaw</option>
-					  <option value="one">Flaw 1</option>
-					  <option value="two">Flaw 2</option>
-					  <option value="three">Flaw 3</option>
+					  <option>Judges others harshly, and themself even more severely</option>
+					  <option>puts too much trust in those who wield power within their temple's hierarchy</option>
+					  <option>their piety sometimes leads them to blindly trust those that profess faith in their god</option>
+                                          <option>inflexible in their thinking</option>
+                                          <option>suspicious of strangers and expect the worst of them</option>
+                                          <option>once they pick a goal, they become obsessed with it to the detriment of everything else in their life.</option>
+                                          <option>can't resist a pretty face.</option>
+                                          <option>is always in debt, spends their ill-gotten gains on decadent luxuries faster than they can bring them in</option>
+                                          <option>convinced that no one could ever fool them the way they fool others</option>
+                                          <option>too greedy for their own good. can't resist taking a risk if there's money involved</option>
+                                          <option>can't resist swindling people who are more powerful than them</option>
+                                          <option>will run to preserve their own hid if the going get tough and hates themself for it</option>
+                      
 					 </select>
 				 </p>
 				 <p></p>
