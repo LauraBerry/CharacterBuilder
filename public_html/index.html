@@ -15,7 +15,6 @@ function setDice(n,ident){
 	}
 
 }
-
 function rollDice(){
 	diceList = [];
     for (var n = 0; n < 7; n++)	{
@@ -50,38 +49,55 @@ function rollDice(){
 			}
 	}
 }
-function setSTR(){
+function rollGold(role){
+	switch(role){
+		case 'Barbarian':
+		case 'Druid':
+			var goldDice = 2;
+			break;
+		case 'Bard':
+		case 'Cleric':
+		case 'Fighter':
+		case 'Paladin':
+		case 'Ranger':
+		case 'Monk':
+			var goldDice = 5;
+			break;
+		case 'Rogue':
+		case 'Warlock':
+		case 'Wizard':
+			var goldDice = 4;
+			break;
+		case 'Sorcerer':
+			var goldDice = 3;
+			break;
+		default:
+			var goldDice = 1000;
+	}
+	var gold = 0;
+	for (i = 0; i < goldDice; i++){
+		var d1 = Math.floor(Math.random() * 4) + 1;
+		gold += d1;
+	}
+	if (role != 'Monk')
+		gold *= 10;
+	goldDisplay.innerHTML = gold;
 }
-//function modifier()
-//{
-  //  var att = document.getElementById(ident);
-   // var sel = document.getElementById("diceList"+1);
-//    var m1= sel/10;
-//    var sel=document.getElementById("diceList"+2)
-  //  var m2=sel/10;
-//    var sel=document.getElementById("diceList32)
- //   var m3=sel/10;
-//    var sel=document.getElementById("diceList"+4)
- //   var m4=sel/10;
- //   for(var n=0; n<9; n++)
-   // {
-     //   if (m1>n&&m1<(n+1))
-       // {
-  //          m1=n;
-    //    }
-      //  if(m2>n&&m2<(n+1))
-//        {
-//            m2=n;
-  //      }
-    //    if (m3>n&&m3<(n+1))
-      //  {
-        //    m3=n;
-        //}
-        //if(m4>n&&m4<(n+1))
- //       {
- //           m4=n;
- //       } 
- //   }
+
+
+function modifier(n, indent)
+{
+  var att = document.getElementById(ident);
+  var sel = document.getElementById("diceList"+n);
+  var m= sel/10;
+  for(var f=0; f<9; f++)
+ {
+    if (m>n&&m<(f+1))
+   {
+         m=n;
+   }
+ }
+ att.innerHTML = m.value;
  //   	for (j=1; j<7; j++)
  //       {
 //		var sel = document.getElementById("diceList"+j);
@@ -94,8 +110,8 @@ function setSTR(){
 //			}
 //	}
 
-//}
-//}
+//    }
+}
 </script>
 
         </head>
@@ -188,7 +204,7 @@ function setSTR(){
                     <select id="diceList4" onchange="setDice(4,'inteligence_value')"></select>
                     <select id="diceList5" onchange="setDice(5,'wisdom_value')"></select>
                     <select id="diceList6" onchange="setDice(6,'charisma_value')"></select>
-                    <select id="modifier1"onchange=""></select>
+                    <select id="modifier1"onchange="modifier(1, 'strength_mod')"></select>
 		  <table style="width:100%">
 		  <tr>
 			  <td></td>
@@ -508,9 +524,9 @@ function setSTR(){
 				 <h4 style= "text-align:center">Gold</h4>
                              </font>
                             <p>
-                                <div style ="text-align:center; size: 4;"><button> Generate Gold</button></div>   
+                                <div style ="text-align:center; size: 4;"><button onclick="rollGold('role')"> Generate Gold</button></div>   
                                 <p></p>
-                                Gold: <div style="width:300px; border: solid gray; background-color:white;"> $ </div>
+                                Gold: <div style="width:300px; border: solid gray; background-color:white;"> $<div id="goldDisplay"></div> </div>
                             </p>
                             <p></p>
 			</div>
