@@ -23,10 +23,10 @@ function rollDice(){
 			diceList[0] = "--";
 			}
 		else{
-			var d1 = Math.floor(Math.random() * 6) + 1;
-			var d2 = Math.floor(Math.random() * 6) + 1;
-			var d3 = Math.floor(Math.random() * 6) + 1;
-			var d4 = Math.floor(Math.random() * 6) + 1;
+			d1 = Math.floor(Math.random() * 6) + 1;
+			d2 = Math.floor(Math.random() * 6) + 1;
+			d3 = Math.floor(Math.random() * 6) + 1;
+			d4 = Math.floor(Math.random() * 6) + 1;
 			var total = d1 + d2 + d3 + d4;
 			var lowest = d1;
 			if (lowest > d2)
@@ -52,6 +52,50 @@ function rollDice(){
 }
 function setSTR(){
 }
+//function modifier()
+//{
+  //  var att = document.getElementById(ident);
+   // var sel = document.getElementById("diceList"+1);
+//    var m1= sel/10;
+//    var sel=document.getElementById("diceList"+2)
+  //  var m2=sel/10;
+//    var sel=document.getElementById("diceList32)
+ //   var m3=sel/10;
+//    var sel=document.getElementById("diceList"+4)
+ //   var m4=sel/10;
+ //   for(var n=0; n<9; n++)
+   // {
+     //   if (m1>n&&m1<(n+1))
+       // {
+  //          m1=n;
+    //    }
+      //  if(m2>n&&m2<(n+1))
+//        {
+//            m2=n;
+  //      }
+    //    if (m3>n&&m3<(n+1))
+      //  {
+        //    m3=n;
+        //}
+        //if(m4>n&&m4<(n+1))
+ //       {
+ //           m4=n;
+ //       } 
+ //   }
+ //   	for (j=1; j<7; j++)
+ //       {
+//		var sel = document.getElementById("diceList"+j);
+//		sel.innerHTML = "";
+//		for(var i = 0; i < 7; i++) {
+//			var opt = document.createElement("option");
+//			opt.innerHTML = diceList[i];
+//			opt.value = diceList[i];
+//			sel.appendChild(opt);
+//			}
+//	}
+
+//}
+//}
 </script>
 
         </head>
@@ -144,6 +188,7 @@ function setSTR(){
                     <select id="diceList4" onchange="setDice(4,'inteligence_value')"></select>
                     <select id="diceList5" onchange="setDice(5,'wisdom_value')"></select>
                     <select id="diceList6" onchange="setDice(6,'charisma_value')"></select>
+                    <select id="modifier1"onchange=""></select>
 		  <table style="width:100%">
 		  <tr>
 			  <td></td>
@@ -325,7 +370,7 @@ function setSTR(){
 					<td style="padding:10px">
 						CHA
 					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
+					<td style= "padding: 10px; border-right: thin solid; border-color:black" id="charisma_mod">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px">
@@ -354,7 +399,7 @@ function setSTR(){
 					<td style="padding:10px">
 						CHA
 					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
+					<td style= "padding: 10px;border-right: thin solid; border-color:black" id="charisma_mod">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 						<td style="padding:15px">
@@ -403,7 +448,7 @@ function setSTR(){
 					<td style="padding:10px">
 						CHA
 					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
+					<td style= "padding: 10px; border-right: thin solid; border-color:black" id="charisma_mod">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 					<td style="padding:15px">
@@ -412,7 +457,7 @@ function setSTR(){
 					<td style="padding:10px">
 						CHA
 					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
+					<td style= "padding: 10px;border-right: thin solid; border-color:black" id="charisma_mod">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"></div>
 					</td>
 						<td style="padding:15px">
@@ -459,25 +504,15 @@ function setSTR(){
 		 <p></p>
 		 <div style="font-family:Papyrus">
 			 <div style="background-color:SeaGreen; height:170px">
-				 <font size="4">
+                            <font size="4">
 				 <h4 style= "text-align:center">Gold</h4>
-				 </font>
-				 <p>
-					<table style="width:100%">
-					<tr>
-						<td>
-						 <form action="">
-							<div style ="text-align:center; size: 4;"><input type="radio" name="Equip" value="GenGol" checked>Generate gold <input type="radio" name="Equip" value="classEquip">Class Equipment <button type="button" id="load" value="gold" style="width:100px; height:20px"> ok</button></div>
-						  </form>
-						  <!-- Generate-->
-						  <!-- Class Equipment generates gold and equipment -->
-						</td>
-					</tr>
-					</table>
-					<p></p>
-					Gold: <div style="width:300px; border: solid gray; background-color:white;"> $ </div>
-				 </p>
-				 <p></p>
+                             </font>
+                            <p>
+                                <div style ="text-align:center; size: 4;"><button> Generate Gold</button></div>   
+                                <p></p>
+                                Gold: <div style="width:300px; border: solid gray; background-color:white;"> $ </div>
+                            </p>
+                            <p></p>
 			</div>
 			 <font size="4">
 			 <h5 style="text-align:center"> Equipment</h5>
