@@ -4,9 +4,56 @@
 	<div style="font-family:Papyrus">
 	<head>
 	  <title>Character Builder</title>
-          <style>
-              var canSee="hidden"
-          </style>
+          <script>
+function setDice(n,ident){
+	var att = document.getElementById(ident);
+	var sel = document.getElementById("diceList"+n);
+	att.innerHTML = sel.options[sel.selectedIndex].value;
+	sel.options[0].disabled = true;
+	for (i=1; i < 7; i++){
+	document.getElementById("diceList"+i).options[sel.selectedIndex].disabled = true;
+	}
+
+}
+
+function rollDice(){
+	diceList = [];
+    for (var n = 0; n < 7; n++)	{
+		if (n == 0){
+			diceList[0] = "--";
+			}
+		else{
+			var d1 = Math.floor(Math.random() * 6) + 1;
+			var d2 = Math.floor(Math.random() * 6) + 1;
+			var d3 = Math.floor(Math.random() * 6) + 1;
+			var d4 = Math.floor(Math.random() * 6) + 1;
+			var total = d1 + d2 + d3 + d4;
+			var lowest = d1;
+			if (lowest > d2)
+				lowest = d2;
+			if (lowest > d3)
+				lowest = d3;
+			if (lowest = d4)
+				lowest = d4;
+			total -= lowest;
+			diceList[n] = total;
+			}
+		}
+	for (j=1; j<7; j++){
+		var sel = document.getElementById("diceList"+j);
+		sel.innerHTML = "";
+		for(var i = 0; i < 7; i++) {
+			var opt = document.createElement("option");
+			opt.innerHTML = diceList[i];
+			opt.value = diceList[i];
+			sel.appendChild(opt);
+			}
+	}
+}
+function setSTR(){
+}
+</script>
+
         </head>
 		<body>
 		<p></p>
@@ -86,11 +133,17 @@
 		 <h3 style="text-align:center">Character Stats</h3>
 		 </font>
 		 <p>
-		 <div style ="text-align:center; size: 4;"><input type="radio" name="stats" value="GenSta" checked>Generate Stats <input type="radio" name="stats" value="pointB">Point Buy  <button type="button" id="load" value="Stats" style="width:100px; height:20px"> ok</button></div>
+		 <div style ="text-align:center; size: 4;"><button type="button" id="load" value="Stats" style="width:100px; height:20px" onclick="rollDice()"> Generate Stats</button></div>
 		   <p></p>
 		   <!-- Generate stats: roll 4 D6 and discard the lowest 6 times, display table with results, table is clickable make boxes clickable.-->
 		   <!-- Point Buy: 8 is displayed in the boxes and a + or - button is shown in the bottom corners they are clickable. there is a total amount do not exceed.-->
 		   <!-- second box is calculated based off the first box.-->
+                   <select id="diceList1" onchange="setDice(1,'strength_value')"></select>
+                    <select id="diceList2" onchange="setDice(2,'dexterity_value')"></select>
+                    <select id="diceList3" onchange="setDice(3,'constitution_value')"></select>
+                    <select id="diceList4" onchange="setDice(4,'inteligence_value')"></select>
+                    <select id="diceList5" onchange="setDice(5,'wisdom_value')"></select>
+                    <select id="diceList6" onchange="setDice(6,'charisma_value')"></select>
 		  <table style="width:100%">
 		  <tr>
 			  <td></td>
@@ -110,7 +163,7 @@
 				 </div>
 			 </td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:30px" id="strength_stat">
+                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:30px" id="strength_value">
                                     
                             </div>
 			</td>
