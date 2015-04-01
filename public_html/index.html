@@ -48,7 +48,7 @@
 		  <h1>Race</h1>
 		  </font>
 		  <p>
-			  <select style="width: 700px;">
+			  <select style="width: 700px;" id="race">
                           <option> please choose a race</option>
                           <option value="Dragonborn">Dragonborn</option>
                           <option value="Dwarf"> Dwarf</option>
@@ -554,10 +554,15 @@
                                           <option>Friendship. Material goods come and go. Bonds of friendship last forever. (Good)</option>
                                           <option>Aspitation. determined to make something of themselves (Any)</option>
                                           <option>Honor. doesn't steal from others in the trade. (Lawful)</option>
+                                          <option>Freedom. chains are ment to be broken, as are those who would forge them (Chaotic)</option>
+                                          <option>Charity. steals from the wealth so that they can help people in need (Good)</option>
+                                          <option>Greed. will do whatever it takes to become wealthy (Evil)</option>
+                                          <option>People. loyal to their friends, not to any ideals and everyone else does not matter (Neutral)</option>
+                                          <option>Redemption. there's a spark of good in everyone (Good)</option>
 					 </select>
 					 <p></p>
 					 Bond: 
-					<select style="width: 500px; overflow: auto">
+					<select style="width: 600px; overflow: auto">
 					  <option value="start">Please Select Bond</option>
 					  <option>would die to recover an ancient relic of my faith that was lost long ago</option>
 					  <option>Hopes to someday get revenge on the corrupt temple hierarchy who branded them a heretic</option>
@@ -571,11 +576,13 @@
                                           <option>comes from a noble family and one day will reclaim their lands and title from those who stole them</option>
                                           <option>a powerful person killed someone they loved, one day soon they will get their revenge</option>
                                           <option>swindled and ruined a person who didn't deserve it and now seeks to atone for their misdeeds but might never be able to forgive themselves</option>
+                                          <option>trying to pay off an old debt owed to a generous benefactor</option>
+                                          <option>their ill-gotten gains go to support their family</option>
                                           
 					 </select>
 					 <p></p>
 					 Flaw: 
-					<select style="width: 400px; overflow: auto">
+					<select style="width: 600px; overflow: auto">
 					  <option value="start">Please Select a Flaw</option>
 					  <option>Judges others harshly, and themself even more severely</option>
 					  <option>puts too much trust in those who wield power within their temple's hierarchy</option>
@@ -604,9 +611,23 @@
 			 <p>
 				<select style="width: 400px;">
 				  <option value="start">Please Select a Feat</option>
-				  <option value="one">Feat 1</option>
-				  <option value="two">Feat 2</option>
-				  <option value="three">Feat 3</option>
+                                  <option value="alert">Alert</option>
+				  <option value="athlete">Athlete</option>
+				  <option value="actor">Actor</option>
+                                  <option value="charger">Charger</option>
+                                  <option value="crossbowexpert">Crossbow Expert</option>
+                                  <option value="defensiveduelist">Defensive Duelist</option>
+                                  <option value="dualwielder">Dual Wielder</option>
+                                  <option value="dungeondelver">Dungeon Delver</option>
+                                  <option value="durable"> Durable </option>
+                                  <option value="elementaladept">Elemental Adept</option>
+                                  <option value="grappler">Grappler</option>
+                                  <option value="greatweaponmaster">Great Weapon Master</option>
+                                  <option value="healer">Healer</option>
+                                  <option value="heavilyarmoured">Heavily Armoured</option>
+                                  <option value="inspiringleader">Inspiring Leader</option>
+                                  <option value="keenmind">Keen Mind</option>
+                                  
 				 </select>
 			 </p>
 			 <!-- when a feat is selected it is put in the feats box in the top-->
