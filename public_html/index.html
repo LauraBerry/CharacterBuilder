@@ -2,7 +2,7 @@
 <html>
 <div style="background-color:ForestGreen">
 	<div style="font-family:Papyrus">
-	<head>
+<head>
 	  <title>Character Builder</title>
           <script>
 function setDice(n,ident){
@@ -13,7 +13,7 @@ function setDice(n,ident){
 	for (i=1; i < 7; i++){
 	document.getElementById("diceList"+i).options[sel.selectedIndex].disabled = true;
 	}
-
+        modifier(ident, sel.options[sel.selectedIndex].value);
 }
 function rollDice(){
 	diceList = [];
@@ -82,35 +82,13 @@ function rollGold(role){
 	if (role != 'Monk')
 		gold *= 10;
 	goldDisplay.innerHTML = gold;
+
 }
 
-
-function modifier(n, indent)
+function modifier(ident, value)
 {
-  var att = document.getElementById(ident);
-  var sel = document.getElementById("diceList"+n);
-  var m= sel/10;
-  for(var f=0; f<9; f++)
- {
-    if (m>n&&m<(f+1))
-   {
-         m=n;
-   }
- }
- att.innerHTML = m.value;
- //   	for (j=1; j<7; j++)
- //       {
-//		var sel = document.getElementById("diceList"+j);
-//		sel.innerHTML = "";
-//		for(var i = 0; i < 7; i++) {
-//			var opt = document.createElement("option");
-//			opt.innerHTML = diceList[i];
-//			opt.value = diceList[i];
-//			sel.appendChild(opt);
-//			}
-//	}
-
-//    }
+    value += 10;
+    ('ident'+'_mod').innerHTML = value;
 }
 </script>
 
@@ -123,7 +101,11 @@ function modifier(n, indent)
 			<font size="6">
 				<h1>Character Builder</h1>
 			</font>
-		</div>
+		</div> 
+                        <table align="right" width="8%" style=" background-color: white; font-size: 50px">
+                            <tr><td></td><td>1</td><td></td></tr>
+                            <tr><td><button>-</button></td><td><button>+</button></td></tr>
+                        </table>
 		<div style="align:center;">
 			<table width="100%">
 				<tr>
@@ -152,9 +134,9 @@ function modifier(n, indent)
 			</table>
 
 		<font size="4">
-		  <h1>Race</h1>
+                <h1>Race</h1>   
 		  </font>
-		  <p>
+		  <p>   
 			  <select style="width: 700px;" id="race">
                           <option> please choose a race</option>
                           <option value="Dragonborn">Dragonborn</option>
@@ -172,7 +154,7 @@ function modifier(n, indent)
 		  <h2>Class</h2>
 		  </font>
 			<p>
-				  <select style="width: 700px;" id="class">
+				  <select style="width: 700px;" id="role">
                                   <option>please choose a class</option>
                                   <option value="barbarian">Barbarian</option>
                                   <option value="bard">Bard</option>
@@ -198,13 +180,12 @@ function modifier(n, indent)
 		   <!-- Generate stats: roll 4 D6 and discard the lowest 6 times, display table with results, table is clickable make boxes clickable.-->
 		   <!-- Point Buy: 8 is displayed in the boxes and a + or - button is shown in the bottom corners they are clickable. there is a total amount do not exceed.-->
 		   <!-- second box is calculated based off the first box.-->
-                   <select id="diceList1" onchange="setDice(1,'strength_value')"></select>
-                    <select id="diceList2" onchange="setDice(2,'dexterity_value')"></select>
-                    <select id="diceList3" onchange="setDice(3,'constitution_value')"></select>
-                    <select id="diceList4" onchange="setDice(4,'inteligence_value')"></select>
-                    <select id="diceList5" onchange="setDice(5,'wisdom_value')"></select>
-                    <select id="diceList6" onchange="setDice(6,'charisma_value')"></select>
-                    <select id="modifier1"onchange="modifier(1, 'strength_mod')"></select>
+                   <select id="diceList1" onchange="setDice(1,'strength')"></select>
+                    <select id="diceList2" onchange="setDice(2,'dexterity')"></select>
+                    <select id="diceList3" onchange="setDice(3,'constitution')"></select>
+                    <select id="diceList4" onchange="setDice(4,'inteligence')"></select>
+                    <select id="diceList5" onchange="setDice(5,'wisdom')"></select>
+                    <select id="diceList6" onchange="setDice(6,'charisma')"></select>
 		  <table style="width:100%">
 		  <tr>
 			  <td></td>
@@ -217,14 +198,14 @@ function modifier(n, indent)
 		  <tr>
 			 <td>
 				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align:center" id="Strength"> 
+					<div style="color:white; text-align:center"> 
 						<p>STR</p> 
 						<p>Strength</p>
 					 </div>
 				 </div>
 			 </td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength_value">
+                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength">
                                     
                             </div>
 			</td>
@@ -235,14 +216,14 @@ function modifier(n, indent)
 			</td>
 				 <td>
 				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align:center" id="inteligence"> <!-- this needs ids-->
+					<div style="color:white; text-align:center"> <!-- this needs ids-->
 						<p>INT</p> 
 						<p>Inteligence</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence_value">
+                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence">
                                  
                              </div>
 			</td>
@@ -253,14 +234,14 @@ function modifier(n, indent)
 		   <tr>
 			 <td>
 				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center" id = "dexterity"> 
+					<div style="color:white; text-align: center"> 
 						<p>DEX</p> 
 						<p>Dexterity</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-				<div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_value"></div>
+				<div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity"></div>
 			</td>
 			<td>
                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_mod">
@@ -269,32 +250,30 @@ function modifier(n, indent)
 			</td>
 			 <td>
 				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center" id="wisdom"> 
+					<div style="color:white; text-align: center"> 
 						<p>WIS</p> 
 						<p>Wisdom</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-				 <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom_value"></div>
+				 <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom"></div>
 			</td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px"id="wisdom_mod">
-                                
-                            </div>
+                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px"id="wisdom_mod"></div>
 			</td>
 			</tr>
 			  <tr>
 			 <td>
 				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center" id="constitution"> 
+					<div style="color:white; text-align: center"> 
 						<p>CON</p> 
 						<p>Constitution</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution_value">
+                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution">
                                  
                              </div>
 			</td>
@@ -305,14 +284,14 @@ function modifier(n, indent)
 			</td>
 				 <td>
 				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center" id="charisma"> 
+					<div style="color:white; text-align: center"> 
 						<p>CHA</p> 
 						<p>Charisma</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma_value">
+                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma">
                                  
                              </div>
 			</td>
@@ -535,64 +514,64 @@ function modifier(n, indent)
 			 </font>
 			 <p>
 				Armour: 	  
-				<select style="width: 300px;">
+				<select style="width: 300px;" id="armour">
 				  <option value="start">Please Select Armour</option>
-                                  <option value="Padded"><table><tr><td>Padded</td><td value="price">5gp</td></tr></table></option>
-				  <option value="Leather"><table><tr><td>Leather</td><td value="price">10gp</td></tr></table></option>
-				  <option value="StuddedLeather"><table><tr><td>Studded Leather</td><td value="price">45gp</td></tr></table></option>
-                                  <option value='Hide'><table><tr><td>Hide</td><td value="price">10gp</td></tr></table></option>
-                                  <option value='Chain Shirt'><table><tr><td>Chain Shirt</td><td value="price">50gp</td></tr></table></option>
-                                  <option value='Scale Mail'><table><tr><td>Scale Mail</td><td value="price">50gp</td></tr></table></option>
-                                  <option value='Breastplate'><table><tr><td>Breastplate</td><td value="price">100gp</td></tr></table></option>
-                                  <option value='Halfplate'><table><tr><td>Halfplate</td><td value="price">750gp</td></tr></table></option>
-                                  <option value='RingMail'><table><tr><td>Ring Mail</td><td value="price">30gp</td></tr></table></option>
-                                  <option value='Chain Mail'><table><tr><td>Chain Mail</td><td value="price">75gp</td></tr></table></option>
-                                  <option value='Splint'><table><tr><td>Splint</td><td value="price">200gp</td></tr></table></option>
-                                  <option value='Plate'><table><tr><td>Plate</td><td value="price">1 5000gp</td></tr></table></option>
-                                  <option value='Shield'><table><tr><td>Shield</td><td value="price">10gp</td></tr></table></option>
+                                  <option value="Padded"><table><tr><td>Padded</td><td id="price">5gp</td></tr></table></option>
+				  <option value="Leather"><table><tr><td>Leather</td><td id="price">10gp</td></tr></table></option>
+				  <option value="StuddedLeather"><table><tr><td>Studded Leather</td><td id="price">45gp</td></tr></table></option>
+                                  <option value='Hide'><table><tr><td>Hide</td><td id="price">10gp</td></tr></table></option>
+                                  <option value='Chain Shirt'><table><tr><td>Chain Shirt</td><td id="price">50gp</td></tr></table></option>
+                                  <option value='Scale Mail'><table><tr><td>Scale Mail</td><td id="price">50gp</td></tr></table></option>
+                                  <option value='Breastplate'><table><tr><td>Breastplate</td><td id="price">100gp</td></tr></table></option>
+                                  <option value='Halfplate'><table><tr><td>Halfplate</td><td id="price">750gp</td></tr></table></option>
+                                  <option value='RingMail'><table><tr><td>Ring Mail</td><td id="price">30gp</td></tr></table></option>
+                                  <option value='Chain Mail'><table><tr><td>Chain Mail</td><td id="price">75gp</td></tr></table></option>
+                                  <option value='Splint'><table><tr><td>Splint</td><td id="price">200gp</td></tr></table></option>
+                                  <option value='Plate'><table><tr><td>Plate</td><td id="price">1 5000gp</td></tr></table></option>
+                                  <option value='Shield'><table><tr><td>Shield</td><td id="price">10gp</td></tr></table></option>
 				 </select>
 			 </p>
 			 <p>
 				Weapons: 	  
-				<select style="width: 300px;">
+				<select style="width: 300px;" id="weapon">
 				  <option value="start"> Please Select a weapon</option>
-                                  <option value="club"><table><tr><td>Club</td><td value="price">1sp</td></tr></table></option>
-                                <option value='Dagger'><table><tr><td>Dagger</td><td value="price">2gp</td></tr></table></option>
-                                  <option value='greatclub'><table><tr><td>Great Club</td><td value="price">2sp</td></tr></table></option>
-                                  <option value='handaxe'><table><tr><td>Handaxe</td><td value="price">5gp</td></tr></table></option>
-                                  <option value='javelin'><table><tr><td>Javelin</td><td value="price">5sp</td></tr></table></option>
-                                  <option value='lighthammer'><table><tr><td>Light Hammer</td><td value="price">2gp</td></tr></table></option>
-                                  <option value='mace'><table><tr><td>Mace</td><td value="price">5gp</td></tr></table></option>
-                                  <option value='quaterstaff'><table><tr><td>Quater Staff</td><td value="price">2sp</td></tr></table></option>
-                                  <option value='sickle'><table><tr><td>Sickle</td><td value="price">1gp</td></tr></table></option>
-                                  <option value='spear'><table><tr><td>Spear</td><td value="price">1gp</td></tr></table></option>
-                                  <option value='crossbow'><table><tr><td>Crossbow</td><td value="price">25gp</td></tr></table></option>
-                                  <option value='dart'><table><tr><td>Dart</td><td value="price">5cp</td></tr></table></option>
-                                  <option value='shortbow'><table><tr><td>Shortbow</td><td value="price">25gp</td></tr></table></option>
-                                  <option value='sling'><table><tr><td>Sling</td><td value="price">1sp</td></tr></table></option>
-                                  <option value='battleaxe'><table><tr><td>Battleaxe</td><td value="price">10gp</td></tr></table></option>
-                                  <option value="flail"><table><tr><td>Flail</td><td value="price">10gp</td></tr></table></option>
-                                  <option value="glaive"><table><tr><td>Glaive</td><td value="price">20gp</td></tr></table></option>
-                                  <option value="greataxe"><table><tr><td>Greataxe</td><td value="price">30gp</td></tr></table></option>                                  
-				  <option value="greatsword"><table><tr><td>Greatsword</td><td value="price">50gp</td></tr></table></option>
-                                  <option value="halberd"><table><tr><td>Halberd</td><td value="price">20gp</td></tr></table></option>
-                                  <option value="lance"><table><tr><td>Lance</td><td value="price">20gp</td></tr></table></option>
-                                  <option value="longsword"><table><tr><td>Longsword</td><td value="price">15gp</td></tr></table></option>
-                                  <option value="maul"><table><tr><td>Maul</td><td value="price">10gp</td></tr></table></option>
-                                  <option value="morningstar"><table><tr><td>Morningsta</td><td value="price">15gp</td></tr></table></option>
-                                  <option value="pike"><table><tr><td>Pike</td><td value="price">5gp</td></tr></table></option>
-                                  <option value="rapier"><table><tr><td>Rapier</td><td value="price">25gp</td></tr></table></option>
-                                  <option value="scimitar"><table><tr><td>Scimitar</td><td value="price">25gp</td></tr></table></option>
-                                  <option value="shortsword"><table><tr><td>Shortsword</td><td value="price">10gp</td></tr></table></option>
-                                  <option value="trident"><table><tr><td>Trident</td><td value="price">5gp</td></tr></table></option>
-                                  <option value="warpick"><table><tr><td>War Pick</td><td value="price">5gp</td></tr></table></option>
-                                  <option value="warhammer"><table><tr><td>Warhammer</td><td value="price">15gp</td></tr></table></option>
-                                  <option value="whip"><table><tr><td>Whip</td><td value="price">2gp</td></tr></table></option>
-                                  <option value="blowgun"><table><tr><td>Blowgun</td><td value="price">10gp</td></tr></table></option>
-                                  <option value="crossbowhand"><table><tr><td>Crossbow Hand</td><td value="price">75gp</td></tr></table></option>
-                                  <option value="crossbowheavy"><table><tr><td>Crossbow Heavy</td><td value="price">50gp</td></tr></table></option>
-                                  <option value="longbow"><table><tr><td>Longbow</td><td value="price">50gp</td></tr></table></option>
-                                  <option value="net"><table><tr><td>Net</td><td value="price">1gp</td></tr></table></option>
+                                  <option value="club"><table><tr><td>Club</td><td id="price">1sp</td></tr></table></option>
+                                <option value='Dagger'><table><tr><td>Dagger</td><td id="price">2gp</td></tr></table></option>
+                                  <option value='greatclub'><table><tr><td>Great Club</td><td id="price">2sp</td></tr></table></option>
+                                  <option value='handaxe'><table><tr><td>Handaxe</td><td id="price">5gp</td></tr></table></option>
+                                  <option value='javelin'><table><tr><td>Javelin</td><td id="price">5sp</td></tr></table></option>
+                                  <option value='lighthammer'><table><tr><td>Light Hammer</td><td id="price">2gp</td></tr></table></option>
+                                  <option value='mace'><table><tr><td>Mace</td><td id="price">5gp</td></tr></table></option>
+                                  <option value='quaterstaff'><table><tr><td>Quater Staff</td><td id="price">2sp</td></tr></table></option>
+                                  <option value='sickle'><table><tr><td>Sickle</td><td id="price">1gp</td></tr></table></option>
+                                  <option value='spear'><table><tr><td>Spear</td><td id="price">1gp</td></tr></table></option>
+                                  <option value='crossbow'><table><tr><td>Crossbow</td><td id="price">25gp</td></tr></table></option>
+                                  <option value='dart'><table><tr><td>Dart</td><td id="price">5cp</td></tr></table></option>
+                                  <option value='shortbow'><table><tr><td>Shortbow</td><td id="price">25gp</td></tr></table></option>
+                                  <option value='sling'><table><tr><td>Sling</td><td id="price">1sp</td></tr></table></option>
+                                  <option value='battleaxe'><table><tr><td>Battleaxe</td><td id="price">10gp</td></tr></table></option>
+                                  <option value="flail"><table><tr><td>Flail</td><td id="price">10gp</td></tr></table></option>
+                                  <option value="glaive"><table><tr><td>Glaive</td><td id="price">20gp</td></tr></table></option>
+                                  <option value="greataxe"><table><tr><td>Greataxe</td><td id="price">30gp</td></tr></table></option>                                  
+				  <option value="greatsword"><table><tr><td>Greatsword</td><td id="price">50gp</td></tr></table></option>
+                                  <option value="halberd"><table><tr><td>Halberd</td><td id="price">20gp</td></tr></table></option>
+                                  <option value="lance"><table><tr><td>Lance</td><td id="price">20gp</td></tr></table></option>
+                                  <option value="longsword"><table><tr><td>Longsword</td><td id="price">15gp</td></tr></table></option>
+                                  <option value="maul"><table><tr><td>Maul</td><td id="price">10gp</td></tr></table></option>
+                                  <option value="morningstar"><table><tr><td>Morningsta</td><td id="price">15gp</td></tr></table></option>
+                                  <option value="pike"><table><tr><td>Pike</td><td id="price">5gp</td></tr></table></option>
+                                  <option value="rapier"><table><tr><td>Rapier</td><td id="price">25gp</td></tr></table></option>
+                                  <option value="scimitar"><table><tr><td>Scimitar</td><td id="price">25gp</td></tr></table></option>
+                                  <option value="shortsword"><table><tr><td>Shortsword</td><td id="price">10gp</td></tr></table></option>
+                                  <option value="trident"><table><tr><td>Trident</td><td id="price">5gp</td></tr></table></option>
+                                  <option value="warpick"><table><tr><td>War Pick</td><td id="price">5gp</td></tr></table></option>
+                                  <option value="warhammer"><table><tr><td>Warhammer</td><td id="price">15gp</td></tr></table></option>
+                                  <option value="whip"><table><tr><td>Whip</td><td id="price">2gp</td></tr></table></option>
+                                  <option value="blowgun"><table><tr><td>Blowgun</td><td id="price">10gp</td></tr></table></option>
+                                  <option value="crossbowhand"><table><tr><td>Crossbow Hand</td><td id="price">75gp</td></tr></table></option>
+                                  <option value="crossbowheavy"><table><tr><td>Crossbow Heavy</td><td id="price">50gp</td></tr></table></option>
+                                  <option value="longbow"><table><tr><td>Longbow</td><td id="price">50gp</td></tr></table></option>
+                                  <option value="net"><table><tr><td>Net</td><td id="price">1gp</td></tr></table></option>
 				 </select>
 			 </p>
 			 <div style="background-color: DarkGreen">
