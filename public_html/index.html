@@ -124,7 +124,9 @@ function rollGold(role){
 		gold *= 10;
 	goldDisplay.innerHTML = gold;
 }
-function resetAtt(){
+
+function resetAtt()
+{
 	document.getElementById('strength').innerHTML = '';
 	document.getElementById('dexterity').innerHTML = '';
 	document.getElementById('constitution').innerHTML = '';
@@ -139,6 +141,7 @@ function resetAtt(){
 	document.getElementById('wisdom_mod').innerHTML = '';
 	document.getElementById('charisma_mod').innerHTML = '';
 }
+
 function modifier(n)
 {
     var mod = attribute[n];
@@ -227,11 +230,68 @@ function levelUp()
 							Features
 							</font>
 						</div>
-						<table align="center" width="300px" height="100px"border="1" rules="none" frame="box" style="text-align:center; background-color:gainsboro">
-							<tr>
-								<td>Feat1</td>
-							</tr>
-						 </table>
+						<div style= "align:center; width:300px; height:100px; text-align:center; background-color:gainsboro;">
+                                                    <div hidden id='dwarf1'>Darkvision</div>
+                                                    <div hidden id='dwarf2'>Dwarven Resilience</div>
+                                                    <div hidden id='dwarf3'>Dwarven Combat Training</div>
+                                                    <div hidden id='elf1'>Darkvision</div>
+                                                    <div hidden id='elf2'>Keend Senses</div>
+                                                    <div hidden id='elf3'>Fey Ancestry</div>
+                                                    <div hidden id='halfling1'> Lucy</div>
+                                                    <div hidden id='halfling2'> Brave</div>
+                                                    <div hidden id='halfling3'> Halfling Nimbleness</div>
+                                                    <div hidden id='dragonborn1'>Draconic Ancestry</div>
+                                                    <div hidden id='dragonborn2'>Breath Weapon</div>
+                                                    <div hidden id='dragonborn3'>Damage Resistance</div>
+                                                    <div hidden id='gnome1'>Darkvision</div>
+                                                    <div hidden id='gnome2'>Gnome Cunning</div>
+                                                    <div hidden id='gnome3'>Speak with Small Beasts</div>
+                                                    <div hidden id='halfelf1'>Darkvision</div>
+                                                    <div hidden id='halfelf2'>Fey Ancestry</div>
+                                                    <div hidden id='halfelf3'>Skill Versatility</div>
+                                                    <div hidden id='halforc1'>Menacing</div>
+                                                    <div hidden id='halforc2'>Relentless Endurance</div>
+                                                    <div hidden id='halforc3'>Savage Attacks</div>
+                                                    <div hidden id='tiefling1'>Darkvision</div>
+                                                    <div hidden id='tiefling2'>Hellish Resistance</div>
+                                                    <div hidden id='tiefling3'>Infernal Legacy</div>
+                                                    <div hidden id='barbarian1'>Rage</div>
+                                                    <div hidden id='barbarian2'>Unarmoured Defense</div>
+                                                    <div hidden id='barbarian3'>Danger Sense</div>
+                                                    <div hidden id='bard1'>Jack of all Trades</div>
+                                                    <div hidden id='bard2'>Song of Rest</div>
+                                                    <div hidden id='bard3'>Font of Inspiration</div>
+                                                    <div hidden id='cleric1'>Spellcasting</div>
+                                                    <div hidden id='cleric2'>Divine Domain</div>
+                                                    <div hidden id='cleric3'>Channel Divinity</div>
+                                                    <div hidden id='druid1'>Spell casting</div>
+                                                    <div hidden id='druid2'>Wild Shape</div>
+                                                    <div hidden id='druid3'>Druid Circle</div>
+                                                    <div hidden id='fighter1'>Second Wind</div>
+                                                    <div hidden id='fighter2'>Action Surge</div>
+                                                    <div hidden id='fighter3'>Extra Attack</div>
+                                                    <div hidden id='monk1'>Martial Arts</div>
+                                                    <div hidden id='monk2'>Ki</div>
+                                                    <div hidden id='monk3'>Unarmored Movement</div>
+                                                    <div hidden id='paladin1'>Divine Sense</div>
+                                                    <div hidden id='paladin2'>Lay on Hands</div>
+                                                    <div hidden id='paladin3'>Fighting Style</div>
+                                                    <div hidden id='ranger1'>Favored Enemy</div>
+                                                    <div hidden id='ranger2'>Natural Explorer</div>
+                                                    <div hidden id='ranger3'>Spellcasting</div>
+                                                    <div hidden id='rouge1'>Sneak Attack</div>
+                                                    <div hidden id='rouge2'>Cunnin Action</div>
+                                                    <div hidden id='rouge3'>Uncanny Dodge</div>
+                                                    <div hidden id='sorcerer1'>Spellcasting</div>
+                                                    <div hidden id='sorcerer2'>Sorcerous Origin</div>
+                                                    <dive hidden id='sorcerer3'>Font of Magic</dive>
+                                                    <div hidden id='warlock1'>Pact Magic</div>
+                                                    <div hidden id='warlock2'>Eldritch Invocations</div>
+                                                    <div hidden id='warlock3'>Pact Boon</div>
+                                                    <div hidden id='wizard1'>Spellcasting</div>
+                                                    <div hidden id='wizard2'>Arcane Recovery</div>
+                                                    <div hidden id='wizard3'>Arcane Tradition</div>
+						</div>
 					</td>
 				</tr>
 			</table>
@@ -328,12 +388,12 @@ function levelUp()
 				 </div>
 			 </td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="strength">
                                     
                             </div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="strength_mod">
                                 
                             </div>
 			</td>
@@ -346,12 +406,12 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="inteligence">
                                  
                              </div>
 			</td>
 			<td>
-				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence_mod"></div>
+				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="inteligence_mod"></div>
 			</td>
 		   </tr>
 		   <tr>
@@ -364,10 +424,10 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity"></div>
+				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="dexterity"></div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="dexterity_mod">
                                 
                             </div>
 			</td>
@@ -380,10 +440,10 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-				 <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom"></div>
+				 <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="wisdom"></div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px"id="wisdom_mod"></div>
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px"id="wisdom_mod"></div>
 			</td>
 			</tr>
 			  <tr>
@@ -396,12 +456,12 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="constitution">
                                  
                              </div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="constitution_mod">
                                 
                             </div>
 			</td>
@@ -414,12 +474,12 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="charisma">
                                  
                              </div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="charisma_mod">
                                 
                             </div>
 			</td>
