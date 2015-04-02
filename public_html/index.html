@@ -5,9 +5,33 @@
 <head>
 	  <title>Character Builder</title>
           <script>
+//Global variables contain the values of the chosen attributes and their corresponding modifier
 var attribute = [];
 var attributeMod = [];
 
+//This function is used to toggle the +5 modifier that a proficient skill recieves, based on whether or not it is chosen as one
+function prof(id, checked){
+	var tag = document.getElementById(id);
+	if (checked == true){
+		tag.innerHTML = parseInt(tag.innerHTML) + 5;
+	}
+	else
+		tag.innerHTML -= 5;
+	
+}
+
+//This function keeps the skill proficiency checkbox disabled until the user selects all 6 attributes, at which point they are enabled
+function toggleSkill(){
+	var bool = true;
+	if (attribute.length == 6)
+		bool = false;
+	var elems = document.getElementsByClassName('box');
+	for (i=0;i<elems.length;i++)
+	elems[i].disabled = bool;
+}
+
+
+//This function assigns the ability modifier for a given attribute when it is selected, by indexing into the modifier global array
 function setSkill(n){
 	switch(n){
 		case(0):
@@ -41,7 +65,7 @@ function setSkill(n){
 	}
 }
 
-
+//This function sets the value of a given attribute when it is selected from the list of generated values
 function setDice(n,ident){
 	var att = document.getElementById(ident);
 	var sel = document.getElementById("diceList"+n);
@@ -52,7 +76,10 @@ function setDice(n,ident){
 	document.getElementById("diceList"+i).options[sel.selectedIndex].disabled = true;
 	}
     modifier(n-1);
+	toggleSkill();
 }
+
+//This function randomly generates the six values that the user can assign to their attributes, by simulating 4 die rolls, removing the lowest, and finding the sum of the remaining 3
 function rollDice(){
 	diceList = [];
 	resetAtt();
@@ -88,6 +115,8 @@ function rollDice(){
 			}
 	}
 }
+
+//This function determines how many die are rolled for generating gold based on the users chosen class
 function rollGold(role){
 	var sel = document.getElementById(role);
 	sel = sel.options[sel.selectedIndex].value;
@@ -125,8 +154,8 @@ function rollGold(role){
 	goldDisplay.innerHTML = gold;
 }
 
-function resetAtt()
-{
+//This function resets all of the attribute and attribute modifier fields when the generate stats button is selected, so that the user can reroll the values if desired
+function resetAtt(){
 	document.getElementById('strength').innerHTML = '';
 	document.getElementById('dexterity').innerHTML = '';
 	document.getElementById('constitution').innerHTML = '';
@@ -142,6 +171,7 @@ function resetAtt()
 	document.getElementById('charisma_mod').innerHTML = '';
 }
 
+//This function calculates the value of the attribute modifier for each attribute as they are selected, and fills the attribute modifier array
 function modifier(n)
 {
     var mod = attribute[n];
@@ -173,33 +203,34 @@ function modifier(n)
 	attributeMod[n] = mod;
 	setSkill(n);
 }
-
+//This function will increase the characters level and appropriately raise their stats
 function levelUp()
 {
     var att=document.getElementById("currLevel");
     att.innerHTML=parseInt(att.innerHTML)+1;
     
     var str=document.getElementById('strength');
-    str.innerHTML=parseInt(str.innerHTML)+3;
+    str.innerHTML=parseInt(str.innerHTML)+1;
     
     var dex=document.getElementById('dexterity');
-    dex.innerHTML=parseInt(dex.innerHTML)+3;
+    dex.innerHTML=parseInt(dex.innerHTML)+1;
 
     var con= document.getElementById('constitution');
-    con.innerHTML=parseInt(con.innerHTML)+3;
+    con.innerHTML=parseInt(con.innerHTML)+1;
+	
     var int= document.getElementById('inteligence');
-    int.innerHTML=parseInt(int.innerHTML)+3;
+    int.innerHTML=parseInt(int.innerHTML)+1;
     
     var wis=document.getElementById('wisdom');
-    wis.innerHTML=parseInt(wis.innerHTML)+3;
+    wis.innerHTML=parseInt(wis.innerHTML)+1;
 
     var cha= document.getElementById('charisma');
-    cha.innerHTML=parseInt(cha.innerHTML)+3;
+    cha.innerHTML=parseInt(cha.innerHTML)+1;
 }
 </script>
 
         </head>
-		<body>
+		<body onLoad="toggleSkill()">
 		<p></p>
 		<div style="text-align:center;">
 			<font size="6">
@@ -208,7 +239,7 @@ function levelUp()
 		</div> 
                         <table align="right" width="8%" style=" background-color: white; font-size: 50px">
                             <tr><td><div id="currLevel">1</div></td></tr>
-                            <tr><td><button onclick="levelUp()">Level Up</button></td></tr>
+                            <tr><td><button class='box' onclick="levelUp()">Level Up</button></td></tr>
                         </table>
 		<div style="align:center;">
 			<table width="100%">
@@ -388,12 +419,12 @@ function levelUp()
 				 </div>
 			 </td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="strength">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength">
                                     
                             </div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="strength_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength_mod">
                                 
                             </div>
 			</td>
@@ -406,12 +437,12 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="inteligence">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence">
                                  
                              </div>
 			</td>
 			<td>
-				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="inteligence_mod"></div>
+				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence_mod"></div>
 			</td>
 		   </tr>
 		   <tr>
@@ -424,10 +455,10 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="dexterity"></div>
+				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity"></div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="dexterity_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_mod">
                                 
                             </div>
 			</td>
@@ -440,10 +471,10 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-				 <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="wisdom"></div>
+				 <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom"></div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px"id="wisdom_mod"></div>
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px"id="wisdom_mod"></div>
 			</td>
 			</tr>
 			  <tr>
@@ -456,12 +487,12 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="constitution">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution">
                                  
                              </div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="constitution_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution_mod">
                                 
                             </div>
 			</td>
@@ -474,12 +505,12 @@ function levelUp()
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="charisma">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma">
                                  
                              </div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:70px" id="charisma_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma_mod">
                                 
                             </div>
 			</td>
@@ -503,7 +534,7 @@ function levelUp()
 			  <table style="width:95%">
 			  	<tr>
 					<td style="padding:15px">
-						<input type="checkbox" value="acrobatics"> Acrobatics
+						<input type="checkbox" class="box" onchange="prof('acrobatics',this.checked)"> Acrobatics
 					</td>
 					<td style="padding:10px"><!-- these need ids -->
 						DEX
@@ -514,7 +545,7 @@ function levelUp()
                                             </div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox"  value="animalhandling"> Animal Handling
+						<input type="checkbox" class="box" value="animalhandling" onchange="prof('animalHandling',this.checked)"> Animal Handling
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -523,7 +554,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="animalHandling"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox"  value="arcana"> Arcana
+						<input type="checkbox"  class="box" onchange="prof('arcana',this.checked)"> Arcana
 					</td>
 					<td style="padding:10px">
 						INT
@@ -533,7 +564,7 @@ function levelUp()
 					</td>
 					</tr>
 					<td style="padding:15px">
-						<input type="checkbox"  value="athletics"> Athletics
+						<input type="checkbox" class="box"  onchange="prof('athletics',this.checked)"> Athletics
 					</td>
 					<td style="padding:10px">
 						STR
@@ -543,7 +574,7 @@ function levelUp()
                                             </div>
 					</td>
 					<td style="padding:15px;">
-						<input type="checkbox"  value="deception"> Deception
+						<input type="checkbox"  class="box" onchange="prof('deception',this.checked)"> Deception
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -552,7 +583,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="deception"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox"  value="history"> History
+						<input type="checkbox" class="box" onchange="prof('history',this.checked)"> History
 					</td>
 					<td style="padding:10px">
 						INT
@@ -563,7 +594,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox"  value="insight"> Insight
+						<input type="checkbox" class="box" onchange="prof('insight',this.checked)"> Insight
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -572,7 +603,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="insight"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" value="intimidation"> Intimidation
+						<input type="checkbox" class="box" onchange="prof('intimidation',this.checked)"> Intimidation
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -581,7 +612,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="intimidation"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox"  value="investigation"> Investigation
+						<input type="checkbox" class="box" onchange="prof('investigation',this.checked)"> Investigation
 					</td>
 					<td style="padding:10px">
 						INT
@@ -592,7 +623,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" value="medicine"> Medicine
+						<input type="checkbox" class="box" onchange="prof('medicine',this.checked)"> Medicine
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -601,7 +632,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="medicine"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" value="nature"> Nature
+						<input type="checkbox" class="box" onchange="prof('nature',this.checked)"> Nature
 					</td>
 					<td style="padding:10px">
 						INT
@@ -610,7 +641,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="nature"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox"  value="perception"> Perception
+						<input type="checkbox" class="box" onchange="prof('perception',this.checked)"> Perception
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -621,7 +652,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox"  value="performance"> Performance
+						<input type="checkbox" class="box" onchange="prof('performance',this.checked)"> Performance
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -630,7 +661,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="performance"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" value="persuasion"> Persuasion
+						<input type="checkbox" class="box" onchange="prof('persuasion',this.checked)"> Persuasion
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -639,7 +670,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="persuasion"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" > Religion
+						<input type="checkbox" class="box" onchange="prof('religion',this.checked)"> Religion
 					</td>
 					<td style="padding:10px">
 						INT
@@ -650,7 +681,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" value="slieghtofhand"> Sleight of Hand
+						<input type="checkbox" class="box" onchange="prof('sleightOfHand',this.checked)"> Sleight of Hand
 					</td>
 					<td style="padding:10px">
 						DEX
@@ -659,7 +690,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="sleightOfHand"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" value="stealth"> Stealth
+						<input type="checkbox" class="box" onchange="prof('stealth',this.checked)"> Stealth
 					</td>
 					<td style="padding:10px">
 						DEX
@@ -668,7 +699,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="stealth"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" value="survival"> Survival
+						<input type="checkbox" class="box" onchange="prof('survival',this.checked)"> Survival
 					</td>
 					<td style="padding:10px">
 						WIS
