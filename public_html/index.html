@@ -211,21 +211,43 @@ function levelUp()
     
     var str=document.getElementById('strength');
     str.innerHTML=parseInt(str.innerHTML)+1;
-    
-    var dex=document.getElementById('dexterity');
-    dex.innerHTML=parseInt(dex.innerHTML)+1;
-
-    var con= document.getElementById('constitution');
-    con.innerHTML=parseInt(con.innerHTML)+1;
+	attribute[0] ++;
+	modifier(0);
 	
-    var int= document.getElementById('inteligence');
+	var dex=document.getElementById('dexterity');
+    dex.innerHTML=parseInt(dex.innerHTML)+1;
+	attribute[1] ++;
+	modifier(1);
+	
+	var dex=document.getElementById('constitution');
+    dex.innerHTML=parseInt(dex.innerHTML)+1;
+	attribute[2] ++;
+	modifier(2);
+	
+	var int= document.getElementById('inteligence');
     int.innerHTML=parseInt(int.innerHTML)+1;
-    
-    var wis=document.getElementById('wisdom');
+	attribute[3] ++;
+	modifier(3);
+	
+	var wis=document.getElementById('wisdom');
     wis.innerHTML=parseInt(wis.innerHTML)+1;
-
+	attribute[4] ++;
+	modifier(4);
+	
+	
     var cha= document.getElementById('charisma');
     cha.innerHTML=parseInt(cha.innerHTML)+1;
+	attribute[5] ++;
+	modifier(5);
+ 
+	
+    
+    
+    //var wis=document.getElementById('wisdom');
+    //wis.innerHTML=parseInt(wis.innerHTML)+1;
+
+    //var cha= document.getElementById('charisma');
+    //cha.innerHTML=parseInt(cha.innerHTML)+1;
 }
 </script>
 
