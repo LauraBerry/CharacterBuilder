@@ -116,54 +116,24 @@ function rollDice(){
 	}
 }
 
-function features(that){
+function featureRace(that){
+	var feat = document.getElementsByClassName("featureRace");
+	for(i=0; i<feat.length; i++)
+		feat[i].style.display="none";
 	var sel = that.options[that.selectedIndex].value;
 	for(i=1; i<4; i++){
 		document.getElementById(sel+i).style.display="block";
 	}
-	/*switch(sel){
-		case 'dwarf':
-			break;
-		case 'dragonborn':
-			break;
-		case 'elf':
-			break;
-		case 'gnome':
-			break;
-		case 'halfelf':
-			break;
-		case 'halforc':
-			break;
-		case 'halfling':
-			break;
-		case 'tiefling':
-			break;
-		case 'Barbarian':
-			break;
-		case 'Druid':
-			break;
-		case 'Bard':
-			break;
-		case 'Cleric':
-			break;
-		case 'Fighter':
-			break;
-		case 'Paladin':
-			break;
-		case 'Ranger':
-			break;
-		case 'Monk':
-			break;
-		case 'Rogue':
-			break;
-		case 'Warlock':
-			break;
-		case 'Wizard':
-			break;
-		case 'Sorcerer':
-			break;
-		
-	}*/
+}
+
+function featureClass(that){
+	var feat = document.getElementsByClassName("featureClass");
+	for(i=0; i<feat.length; i++)
+		feat[i].style.display="none";
+	var sel = that.options[that.selectedIndex].value;
+	for(i=1; i<4; i++){
+		document.getElementById(sel+i).style.display="block";
+	}
 }
 
 
@@ -193,7 +163,7 @@ function rollGold(role){
 			var goldDice = 3;
 			break;
 		default:
-			var goldDice = 1000;
+			var goldDice = 0;
 	}
 	var gold = 0;
 	for (i = 0; i < goldDice; i++){
@@ -325,67 +295,70 @@ function levelUp()
 						</div>
                                         </td>
                                         <td>
-						<div style= "align:center; width:300px; height:150px; text-align:center; background-color:gainsboro; overflow: auto">
-                                                    <div style="display:none;" id='dwarf1'>Darkvision</div>
-                                                    <div style="display:none;" id='dwarf2'>Dwarven Resilience</div>
-                                                    <div style="display:none;" id='dwarf3'>Dwarven Combat Training</div>
-                                                    <div style="display:none;" id='elf1'>Darkvision</div>
-                                                    <div style="display:none;" id='elf2'>Keend Senses</div>
-                                                    <div style="display:none;" id='elf3'>Fey Ancestry</div>
-                                                    <div style="display:none;" id='halfling1'> Lucy</div>
-                                                    <div style="display:none;" id='halfling2'> Brave</div>
-                                                    <div style="display:none;" id='halfling3'> Halfling Nimbleness</div>
-                                                    <div style="display:none;" id='dragonborn1'>Draconic Ancestry</div>
-                                                    <div style="display:none;" id='dragonborn2'>Breath Weapon</div>
-                                                    <div style="display:none;" id='dragonborn3'>Damage Resistance</div>
-                                                    <div style="display:none;" id='gnome1'>Darkvision</div>
-                                                    <div style="display:none;" id='gnome2'>Gnome Cunning</div>
-                                                    <div style="display:none;" id='gnome3'>Speak with Small Beasts</div>
-                                                    <div style="display:none;" id='halfelf1'>Darkvision</div>
-                                                    <div style="display:none;" id='halfelf2'>Fey Ancestry</div>
-                                                    <div style="display:none;" id='halfelf3'>Skill Versatility</div>
-                                                    <div style="display:none;" id='halforc1'>Menacing</div>
-                                                    <div style="display:none;" id='halforc2'>Relentless Endurance</div>
-                                                    <div style="display:none;" id='halforc3'>Savage Attacks</div>
-                                                    <div style="display:none;" id='tiefling1'>Darkvision</div>
-                                                    <div style="display:none;" id='tiefling2'>Hellish Resistance</div>
-                                                    <div style="display:none;" id='tiefling3'>Infernal Legacy</div>
-                                                    <div style="display:none;" id='Barbarian1'>Rage</div>
-                                                    <div style="display:none;" id='Barbarian2'>Unarmoured Defense</div>
-                                                    <div style="display:none;" id='Barbarian3'>Danger Sense</div>
-                                                    <div style="display:none;" id='Bard1'>Jack of all Trades</div>
-                                                    <div style="display:none;" id='Bard2'>Song of Rest</div>
-                                                    <div style="display:none;" id='Bard3'>Font of Inspiration</div>
-                                                    <div style="display:none;" id='Cleric1'>Spellcasting</div>
-                                                    <div style="display:none;" id='Cleric2'>Divine Domain</div>
-                                                    <div style="display:none;" id='Cleric3'>Channel Divinity</div>
-                                                    <div style="display:none;" id='Druid1'>Spell casting</div>
-                                                    <div style="display:none;" id='Druid2'>Wild Shape</div>
-                                                    <div style="display:none;" id='Druid3'>Druid Circle</div>
-                                                    <div style="display:none;" id='Fighter1'>Second Wind</div>
-                                                    <div style="display:none;" id='Fighter2'>Action Surge</div>
-                                                    <div style="display:none;" id='Fighter3'>Extra Attack</div>
-                                                    <div style="display:none;" id='Monk1'>Martial Arts</div>
-                                                    <div style="display:none;" id='Monk2'>Ki</div>
-                                                    <div style="display:none;" id='Monk3'>Unarmored Movement</div>
-                                                    <div style="display:none;" id='Paladin1'>Divine Sense</div>
-                                                    <div style="display:none;" id='Paladin2'>Lay on Hands</div>
-                                                    <div style="display:none;" id='Paladin3'>Fighting Style</div>
-                                                    <div style="display:none;" id='Ranger1'>Favored Enemy</div>
-                                                    <div style="display:none;" id='Ranger2'>Natural Explorer</div>
-                                                    <div style="display:none;" id='Ranger3'>Spellcasting</div>
-                                                    <div style="display:none;" id='Rogue1'>Sneak Attack</div>
-                                                    <div style="display:none;" id='Rogue2'>Cunnin Action</div>
-                                                    <div style="display:none;" id='Rogue3'>Uncanny Dodge</div>
-                                                    <div style="display:none;" id='Sorcerer1'>Spellcasting</div>
-                                                    <div style="display:none;" id='Sorcerer2'>Sorcerous Origin</div>
-                                                    <div style="display:none;" id='Sorcerer3'>Font of Magic</dive>
-                                                    <div style="display:none;" id='Warlock1'>Pact Magic</div>
-                                                    <div style="display:none;" id='Warlock2'>Eldritch Invocations</div>
-                                                    <div style="display:none;" id='Warlock3'>Pact Boon</div>
-                                                    <div style="display:none;" id='Wizard1'>Spellcasting</div>
-                                                    <div style="display:none;" id='Wizard2'>Arcane Recovery</div>
-                                                    <div style="display:none;" id='Wizard3'>Arcane Tradition</div>
+						<div style= "align:center; width:300px; height:100px; text-align:center; background-color:gainsboro; overflow:auto">
+                                                    <div class="featureRace"  style="display:none;" id='dwarf1'>Darkvision</div>
+                                                    <div class="featureRace"  style="display:none;" id='dwarf2'>Dwarven Resilience</div>
+                                                    <div class="featureRace"  style="display:none;" id='dwarf3'>Dwarven Combat Training</div>
+                                                    <div class="featureRace"  style="display:none;" id='elf1'>Darkvision</div>
+                                                    <div class="featureRace"  style="display:none;" id='elf2'>Keend Senses</div>
+                                                    <div class="featureRace"  style="display:none;" id='elf3'>Fey Ancestry</div>
+                                                    <div class="featureRace"  style="display:none;" id='halfling1'> Lucy</div>
+                                                    <div class="featureRace"  style="display:none;" id='halfling2'> Brave</div>
+                                                    <div class="featureRace"  style="display:none;" id='halfling3'> Halfling Nimbleness</div>
+                                                    <div class="featureRace"  style="display:none;" id='dragonborn1'>Draconic Ancestry</div>
+                                                    <div class="featureRace"  style="display:none;" id='dragonborn2'>Breath Weapon</div>
+                                                    <div class="featureRace"  style="display:none;" id='dragonborn3'>Damage Resistance</div>
+                                                    <div class="featureRace"  style="display:none;" id='gnome1'>Darkvision</div>
+                                                    <div class="featureRace"  style="display:none;" id='gnome2'>Gnome Cunning</div>
+                                                    <div class="featureRace"  style="display:none;" id='gnome3'>Speak with Small Beasts</div>
+													<div class="featureRace"  style="display:none;" id='human1'></div>
+                                                    <div class="featureRace"  style="display:none;" id='human2'></div>
+                                                    <div class="featureRace"  style="display:none;" id='human3'></div>
+                                                    <div class="featureRace"  style="display:none;" id='halfelf1'>Darkvision</div>
+                                                    <div class="featureRace"  style="display:none;" id='halfelf2'>Fey Ancestry</div>
+                                                    <div class="featureRace"  style="display:none;" id='halfelf3'>Skill Versatility</div>
+                                                    <div class="featureRace"  style="display:none;" id='halforc1'>Menacing</div>
+                                                    <div class="featureRace"  style="display:none;" id='halforc2'>Relentless Endurance</div>
+                                                    <div class="featureRace"  style="display:none;" id='halforc3'>Savage Attacks</div>
+                                                    <div class="featureRace"  style="display:none;" id='tiefling1'>Darkvision</div>
+                                                    <div class="featureRace"  style="display:none;" id='tiefling2'>Hellish Resistance</div>
+                                                    <div class="featureRace"  style="display:none;" id='tiefling3'>Infernal Legacy</div>
+                                                    <div class="featureClass"  style="display:none;" id='Barbarian1'>Rage</div>
+                                                    <div class="featureClass"  style="display:none;" id='Barbarian2'>Unarmoured Defense</div>
+                                                    <div class="featureClass"  style="display:none;" id='Barbarian3'>Danger Sense</div>
+                                                    <div class="featureClass"  style="display:none;" id='Bard1'>Jack of all Trades</div>
+                                                    <div class="featureClass"  style="display:none;" id='Bard2'>Song of Rest</div>
+                                                    <div class="featureClass"  style="display:none;" id='Bard3'>Font of Inspiration</div>
+                                                    <div class="featureClass"  style="display:none;" id='Cleric1'>Spellcasting</div>
+                                                    <div class="featureClass"  style="display:none;" id='Cleric2'>Divine Domain</div>
+                                                    <div class="featureClass"  style="display:none;" id='Cleric3'>Channel Divinity</div>
+                                                    <div class="featureClass"  style="display:none;" id='Druid1'>Spell casting</div>
+                                                    <div class="featureClass"  style="display:none;" id='Druid2'>Wild Shape</div>
+                                                    <div class="featureClass"  style="display:none;" id='Druid3'>Druid Circle</div>
+                                                    <div class="featureClass"  style="display:none;" id='Fighter1'>Second Wind</div>
+                                                    <div class="featureClass"  style="display:none;" id='Fighter2'>Action Surge</div>
+                                                    <div class="featureClass"  style="display:none;" id='Fighter3'>Extra Attack</div>
+                                                    <div class="featureClass"  style="display:none;" id='Monk1'>Martial Arts</div>
+                                                    <div class="featureClass"  style="display:none;" id='Monk2'>Ki</div>
+                                                    <div class="featureClass"  style="display:none;" id='Monk3'>Unarmored Movement</div>
+                                                    <div class="featureClass"  style="display:none;" id='Paladin1'>Divine Sense</div>
+                                                    <div class="featureClass"  style="display:none;" id='Paladin2'>Lay on Hands</div>
+                                                    <div class="featureClass"  style="display:none;" id='Paladin3'>Fighting Style</div>
+                                                    <div class="featureClass"  style="display:none;" id='Ranger1'>Favored Enemy</div>
+                                                    <div class="featureClass"  style="display:none;" id='Ranger2'>Natural Explorer</div>
+                                                    <div class="featureClass"  style="display:none;" id='Ranger3'>Spellcasting</div>
+                                                    <div class="featureClass"  style="display:none;" id='Rogue1'>Sneak Attack</div>
+                                                    <div class="featureClass"  style="display:none;" id='Rogue2'>Cunnin Action</div>
+                                                    <div class="featureClass"  style="display:none;" id='Rogue3'>Uncanny Dodge</div>
+                                                    <div class="featureClass"  style="display:none;" id='Sorcerer1'>Spellcasting</div>
+                                                    <div class="featureClass"  style="display:none;" id='Sorcerer2'>Sorcerous Origin</div>
+                                                    <div class="featureClass"  style="display:none;" id='Sorcerer3'>Font of Magic</div>
+                                                    <div class="featureClass"  style="display:none;" id='Warlock1'>Pact Magic</div>
+                                                    <div class="featureClass"  style="display:none;" id='Warlock2'>Eldritch Invocations</div>
+                                                    <div class="featureClass"  style="display:none;" id='Warlock3'>Pact Boon</div>
+                                                    <div class="featureClass"  style="display:none;" id='Wizard1'>Spellcasting</div>
+                                                    <div class="featureClass"  style="display:none;" id='Wizard2'>Arcane Recovery</div>
+                                                    <div class="featureClass"  style="display:none;" id='Wizard3'>Arcane Tradition</div>
                                         </div>
                                     </td>
 				</tr>
@@ -400,7 +373,7 @@ function levelUp()
                 <h1>Race</h1>   
 		  </font>
 		  <p>   
-			  <select style="width: 700px;" id="race" onchange="features(this)">
+			  <select style="width: 700px;" id="race" onchange="featureRace(this)">
                           <option> Please choose a race</option>
                           <option value="dragonborn">Dragonborn</option>
                           <option value="dwarf"> Dwarf</option>
@@ -417,12 +390,12 @@ function levelUp()
 		  <h1>Class</h1>
 		  </font>
 			<p>
-				  <select style="width: 700px;" id="role" onchange="features(this)">
+				  <select style="width: 700px;" id="role" onchange="featureClass(this)">
                                   <option>Please choose a class</option>
                                   <option value="Barbarian">Barbarian</option>
                                   <option value="Bard">Bard</option>
                                   <option value="Cleric"> Cleric</option>
-                                  <option value="Druid">Druid</option>
+                                  <option value="Drui1d">Druid</option>
                                   <option value="Fighter">Fighter</option>
                                   <option value="Monk">Monk</option>
                                   <option value="Paladin">Paladin</option>
