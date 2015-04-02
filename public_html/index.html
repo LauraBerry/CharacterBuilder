@@ -54,7 +54,9 @@ function rollDice(){
 	}
 }
 function rollGold(role){
-	switch(role){
+	var sel = document.getElementById(role);
+	sel = sel.options[sel.selectedIndex].value;
+	switch(sel){
 		case 'Barbarian':
 		case 'Druid':
 			var goldDice = 2;
@@ -83,7 +85,7 @@ function rollGold(role){
 		var d1 = Math.floor(Math.random() * 4) + 1;
 		gold += d1;
 	}
-	if (role != 'Monk')
+	if (sel != 'Monk')
 		gold *= 10;
 	goldDisplay.innerHTML = gold;
 }
@@ -94,6 +96,13 @@ function resetAtt(){
 	document.getElementById('inteligence').innerHTML = '';
 	document.getElementById('wisdom').innerHTML = '';
 	document.getElementById('charisma').innerHTML = '';
+	
+	document.getElementById('strength_mod').innerHTML = '';
+	document.getElementById('dexterity_mod').innerHTML = '';
+	document.getElementById('constitution_mod').innerHTML = '';
+	document.getElementById('inteligence_mod').innerHTML = '';
+	document.getElementById('wisdom_mod').innerHTML = '';
+	document.getElementById('charisma_mod').innerHTML = '';
 }
 function modifier(n)
 {
@@ -154,8 +163,6 @@ function levelUp()
         </head>
 		<body>
 		<p></p>
-		<div style="align:right; width:100px">  <button type="button" id="load" value="Load" style="width:150px; height:20px"> Load</button></div>
-		<p></p>
 		<div style="text-align:center;">
 			<font size="6">
 				<h1>Character Builder</h1>
@@ -210,41 +217,56 @@ function levelUp()
 			 </select>
 		 </p>
 		 <font size="4">
-		  <h2>Class</h2>
+		  <h1>Class</h1>
 		  </font>
 			<p>
 				  <select style="width: 700px;" id="role">
                                   <option>please choose a class</option>
-                                  <option value="barbarian">Barbarian</option>
-                                  <option value="bard">Bard</option>
-                                  <option value="cleric"> Cleric</option>
-                                  <option value="druid">Druid</option>
-                                  <option value="fighter">Fighter</option>
-                                  <option value="monk">Monk</option>
-                                  <option value="paladin">Paladin</option>
-				  <option value="Ranger">Ranger</option>
-                                  <option value="rouge">Rouge</option>
+                                  <option value="Barbarian">Barbarian</option>
+                                  <option value="Bard">Bard</option>
+                                  <option value="Cleric"> Cleric</option>
+                                  <option value="Druid">Druid</option>
+                                  <option value="Fighter">Fighter</option>
+                                  <option value="Monk">Monk</option>
+                                  <option value="Paladin">Paladin</option>
+								  <option value="Ranger">Ranger</option>
+                                  <option value="Rouge">Rouge</option>
                                   <option value="Sorcerer">Sorcerer</option>
-				  <option value="Warlock">Warrlock</option>
+								  <option value="Warlock">Warrlock</option>
                                   <option value="Wizard">Wizard</option>
 				  </select>
 			 </p>
 		 </div>
-		 <font size="4">
-		 <h3 style="text-align:center">Character Stats</h3>
-		 </font>
+                <div style="text-align:center">
+                    <font size="4">
+                        <h1>Character Stats</h1>
+                    </font>
+                </div>
 		 <p>
 		 <div style ="text-align:center; size: 4;"><button type="button" id="load" value="Stats" style="width:100px; height:20px" onclick="rollDice()"> Generate Stats</button></div>
 		   <p></p>
-		   <!-- Generate stats: roll 4 D6 and discard the lowest 6 times, display table with results, table is clickable make boxes clickable.-->
-		   <!-- Point Buy: 8 is displayed in the boxes and a + or - button is shown in the bottom corners they are clickable. there is a total amount do not exceed.-->
-		   <!-- second box is calculated based off the first box.-->
-                   <select id="diceList1" onchange="setDice(1,'strength')"></select>
-                    <select id="diceList2" onchange="setDice(2,'dexterity')"></select>
-                    <select id="diceList3" onchange="setDice(3,'constitution')"></select>
-                    <select id="diceList4" onchange="setDice(4,'inteligence')"></select>
-                    <select id="diceList5" onchange="setDice(5,'wisdom')"></select>
-                    <select id="diceList6" onchange="setDice(6,'charisma')"></select>
+                   <table width="%100" style="background-color:ForestGreen; align:center">
+                       <tr>
+                            <td padding="50px">
+                                 <select id="diceList1" onchange="setDice(1,'strength')" style="width:80px"></select>
+                            </td>
+                            <td padding="50px">
+                              <select id="diceList2" onchange="setDice(2,'dexterity')" style="width:80px"></select>
+                            </td>
+                            <td padding="50px">
+                                <select id="diceList3" onchange="setDice(3,'constitution')" style="width:80px"></select>
+                            </td>
+                            <td padding="50px">
+                                 <select id="diceList4" onchange="setDice(4,'inteligence')"style="width:80px"></select>
+                            </td>
+                            <td padding="50px">
+                                 <select id="diceList5" onchange="setDice(5,'wisdom')" style="width:80px"></select>
+                            </td>
+                            <td padding="50px">
+                                 <select id="diceList6" onchange="setDice(6,'charisma')" style="width:80px"></select>
+                            </td>
+                       </tr>
+                   </table>
 		  <table style="width:100%">
 		  <tr>
 			  <td></td>
@@ -256,106 +278,106 @@ function levelUp()
 		  </tr>
 		  <tr>
 			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align:center"> 
+				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+					<div style=" text-align:center"> 
 						<p>STR</p> 
 						<p>Strength</p>
 					 </div>
 				 </div>
 			 </td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength">
                                     
                             </div>
 			</td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength_mod">
                                 
                             </div>
 			</td>
 				 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align:center"> <!-- this needs ids-->
+				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+					<div style="text-align:center"> <!-- this needs ids-->
 						<p>INT</p> 
 						<p>Inteligence</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence">
                                  
                              </div>
 			</td>
 			<td>
-				<div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence_mod"></div>
+				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence_mod"></div>
 			</td>
 		   </tr>
 		   <tr>
 			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center"> 
+				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+					<div style=" text-align: center"> 
 						<p>DEX</p> 
 						<p>Dexterity</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-				<div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity"></div>
+				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity"></div>
 			</td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_mod">
                                 
                             </div>
 			</td>
 			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center"> 
+				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+					<div style=" text-align: center"> 
 						<p>WIS</p> 
 						<p>Wisdom</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-				 <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom"></div>
+				 <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom"></div>
 			</td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px"id="wisdom_mod"></div>
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px"id="wisdom_mod"></div>
 			</td>
 			</tr>
 			  <tr>
 			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center"> 
+				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+					<div style="text-align: center"> 
 						<p>CON</p> 
 						<p>Constitution</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution">
                                  
                              </div>
 			</td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution_mod">
                                 
                             </div>
 			</td>
 				 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:blue; align: left"> 
-					<div style="color:white; text-align: center"> 
+				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+					<div style="text-align: center"> 
 						<p>CHA</p> 
 						<p>Charisma</p>
 					 </div>
 				 </div>
 			 </td>
 			 <td>
-                             <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma">
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma">
                                  
                              </div>
 			</td>
 			<td>
-                            <div style="background-color:white; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma_mod">
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma_mod">
                                 
                             </div>
 			</td>
@@ -379,7 +401,7 @@ function levelUp()
 			  <table style="width:95%">
 			  	<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Acrobatics
+						<input type="checkbox" id="Acrobatics" value="acrobatics"> Acrobatics
 					</td>
 					<td style="padding:10px"><!-- these need ids -->
 						DEX
@@ -390,7 +412,7 @@ function levelUp()
                                             </div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Animal Handling
+						<input type="checkbox" id="Animal Handling" value="animalhandling"> Animal Handling
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -399,7 +421,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="wisdom_mod"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Arcana
+						<input type="checkbox" id="Arcana" value="arcana"> Arcana
 					</td>
 					<td style="padding:10px">
 						INT
@@ -409,7 +431,7 @@ function levelUp()
 					</td>
 					</tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Athletics
+						<input type="checkbox" id="Athletics" value="athletics"> Athletics
 					</td>
 					<td style="padding:10px">
 						STR
@@ -419,7 +441,7 @@ function levelUp()
                                             </div>
 					</td>
 					<td style="padding:15px;">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Deception
+						<input type="checkbox" id="Deception" value="deception"> Deception
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -428,7 +450,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="charisma_mod"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> History
+						<input type="checkbox" id="History" value="history"> History
 					</td>
 					<td style="padding:10px">
 						INT
@@ -439,7 +461,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Insight
+						<input type="checkbox" id="Insight" value="insight"> Insight
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -448,7 +470,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="wisdom_mod"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Intimidation
+						<input type="checkbox" id="Intimidation" value="intimidation"> Intimidation
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -457,7 +479,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="charisma_mod"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Investigation
+						<input type="checkbox" id="Investigation" value="investigation"> Investigation
 					</td>
 					<td style="padding:10px">
 						INT
@@ -468,7 +490,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Medicine
+						<input type="checkbox" id="Medicine" value="medicine"> Medicine
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -477,7 +499,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="wisdom_mod"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Nature
+						<input type="checkbox" id="Nature" value="nature"> Nature
 					</td>
 					<td style="padding:10px">
 						INT
@@ -486,7 +508,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="inteligence_mod"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Perception
+						<input type="checkbox" id="Perception" value="perception"> Perception
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -497,7 +519,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Performance
+						<input type="checkbox" id="Performance" value="performance"> Performance
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -506,7 +528,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="charisma_mod"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Persuasion
+						<input type="checkbox" id="Persuasion" value="persuasion"> Persuasion
 					</td>
 					<td style="padding:10px">
 						CHA
@@ -515,7 +537,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="charisma_mod"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Religion
+						<input type="checkbox" id="Religion" value="religion"> Religion
 					</td>
 					<td style="padding:10px">
 						INT
@@ -526,7 +548,7 @@ function levelUp()
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Sleight of Hand
+						<input type="checkbox" id="Alchemy" value="slieghtofhand"> Sleight of Hand
 					</td>
 					<td style="padding:10px">
 						DEX
@@ -535,7 +557,7 @@ function levelUp()
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="dexterity_mod"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Stealth
+						<input type="checkbox" id="Stealth" value="stealth"> Stealth
 					</td>
 					<td style="padding:10px">
 						DEX
@@ -543,8 +565,8 @@ function levelUp()
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
 						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="dexterity_mod"></div>
 					</td>
-						<td style="padding:15px">
-						<input type="checkbox" name="Alchemy" value="alchemy"> Survival
+					<td style="padding:15px">
+						<input type="checkbox" id="Survival" value="survival"> Survival
 					</td>
 					<td style="padding:10px">
 						WIS
@@ -559,19 +581,20 @@ function levelUp()
 		 <div style="font-family:Papyrus">
 			 <div style="background-color:SeaGreen; height:170px">
                             <font size="4">
-				 <h4 style= "text-align:center">Gold</h4>
+				 <h1 style= "text-align:center">Gold</h1>
                              </font>
                             <p>
                                 <div style ="text-align:center; size: 4;"><button onclick="rollGold('role')"> Generate Gold</button></div>   
                                 <p></p>
-                                Gold: <div style="width:300px; border: solid gray; background-color:white;"> $<div id="goldDisplay"></div> </div>
+                                Gold: <div style="width:300px; border: solid gray; background-color:white;"id="goldDisplay"></div>
                             </p>
                             <p></p>
 			</div>
 			 <font size="4">
-			 <h5 style="text-align:center"> Equipment</h5>
-			 </font>
+			 <h1 style="text-align:center"> Equipment</h1>
+                         </font>
 			 <p>
+                             
 				Armour: 	  
 				<select style="width: 300px;" id="armour">
 				  <option value="start">Please Select Armour</option>
@@ -635,7 +658,7 @@ function levelUp()
 			 </p>
 			 <div style="background-color: DarkGreen">
 				 <font size="5">
-				 <h6 style = "text-align:center">Background</h6>
+				 <h1 style = "text-align:center">Background</h1>
 				 </font>
 				 <p>
 				 <table style= "width:100%">
@@ -746,8 +769,8 @@ function levelUp()
 				 </tr>
 				 </table>
 			</div>
-			 <font size="5">
-				<h7> Feats</h7>
+			 <font size="4">
+				<h1> Feats</h1>
 			 </font>
 
 			 <p>
@@ -776,53 +799,52 @@ function levelUp()
 			 </div>
 			<div style="background-color:Green">
 				<div style="text-align:center;font-family:Papyrus">
-					 <font size="5">
-						<h8>Spells </h8>
+					 <font size="4">
+						<h1>Spells </h1>
 					 </font>
 				 </div>
 				 <table width="100%">
-					 <tr>
-						 <td>
-							<div style="font-family:Papyrus">
+                                    <tr>
+                                        <td>
+                                            <div style="font-family:Papyrus">
 								Spells Known
+                                            </div>
+					 </td>	 
+					 <td>
+                                             <table>
+                                                <tr>
+                                                    <td>
+                                                        <div style="font-family:Papyrus">
+                                                            Spells Remaining:
 							</div>
-						 </td>
-						 
-						 <td>
-							 <table>
-								 <tr>
-									<td>
-										<div style="font-family:Papyrus">
-											Spells Remaining:
-										</div>
-									</td>
-									<td>
-										<div style="font-family:Papyrus">
-											1
-										</div>
-									</td>
-								 </tr>
-							 </table>
-						 </td>
+							</td>
+							<td>
+							<div style="font-family:Papyrus">
+                                                            1
+							</div>
+                                                    </td>
+						</tr>
+                                            </table>
+					 </td>
 					 </tr>
 					<tr>
-						<td>
-							<table width="300px" height="100px" border="1" rules="none" frame="box" style ="background-color:white; border-color:black">
-								<tr>
-									level 0 Spells
-								</tr>
-									<!-- need to make it move from one to the other.-->
-								<tr>
-									<td>
-										Heal
-									</td>
-								</tr>
-								<tr>
-									<td>
-										ice
-									</td>
-								</tr>
-							</table>
+                                            <td>
+                                                <table width="300px" height="100px" border="1" rules="none" frame="box" style ="background-color:white; border-color:black">
+                                                    <tr>
+                                                        level 0 Spells
+                                                    </tr>
+						<!-- need to make it move from one to the other.-->
+                                                    <tr>
+                                                        <td>
+                                                            Heal
+							</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            ice
+							</td>
+                                                    </tr>
+                                                </table>
 						</td>
 						<td>
 							<table width="300px" height="100px" border="1" rules="none" frame="box" style ="background-color:white; border-color:black">
@@ -842,8 +864,6 @@ function levelUp()
 					</table>
 				<p></p>
 			</div>
-			<div align="center"> <button type="button" value="Save" style="width:700px; height:80px; font-size:40px;"> Save</button></div>
-			<!-- write to a file.-->
-			</div>
-		</body>
+		</div>
+	</body>
 </html>
