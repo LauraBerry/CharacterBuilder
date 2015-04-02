@@ -6,6 +6,41 @@
 	  <title>Character Builder</title>
           <script>
 var attribute = [];
+var attributeMod = [];
+
+function setSkill(n){
+	switch(n){
+		case(0):
+			document.getElementById('athletics').innerHTML = attributeMod[n];
+			break;
+		case(1):
+			document.getElementById('acrobatics').innerHTML = attributeMod[n];
+			document.getElementById('sleightOfHand').innerHTML = attributeMod[n];
+			document.getElementById('stealth').innerHTML = attributeMod[n];
+			break;
+		case(3):
+			document.getElementById('nature').innerHTML = attributeMod[n];
+			document.getElementById('arcana').innerHTML = attributeMod[n];
+			document.getElementById('history').innerHTML = attributeMod[n];
+			document.getElementById('religion').innerHTML = attributeMod[n];
+			document.getElementById('investigation').innerHTML = attributeMod[n];
+			break;
+		case(4):
+			document.getElementById('insight').innerHTML = attributeMod[n];
+			document.getElementById('medicine').innerHTML = attributeMod[n];
+			document.getElementById('animalHandling').innerHTML = attributeMod[n];
+			document.getElementById('perception').innerHTML = attributeMod[n];
+			document.getElementById('survival').innerHTML = attributeMod[n];
+			break;
+		case(5):
+			document.getElementById('performance').innerHTML = attributeMod[n];
+			document.getElementById('deception').innerHTML = attributeMod[n];
+			document.getElementById('persuasion').innerHTML = attributeMod[n];
+			document.getElementById('intimidation').innerHTML = attributeMod[n];
+			break;
+	}
+}
+
 
 function setDice(n,ident){
 	var att = document.getElementById(ident);
@@ -132,6 +167,8 @@ function modifier(n)
 		
 	}
     document.getElementById(modname).innerHTML = mod;
+	attributeMod[n] = mod;
+	setSkill(n);
 }
 
 function levelUp()
@@ -177,7 +214,7 @@ function levelUp()
 				<tr>
 					<td>
 						<font size="4">
-							<h1>Name</h1>
+										<h1>Name</h1>
 						 </font>
 						<input type="text"style="width:600px; align: center;">
 					</td>
@@ -203,6 +240,7 @@ function levelUp()
                     <font size="3">Weight</font><input type="text" style="width:50px; heigh:100px; background-color: white; text-align: center">
                     <font size="3">Age</font><input type="text" style="width:50px; heigh:100px; background-color: white; text-align: center">
                     
+
 		<font size="4">
                 <h1>Race</h1>   
 		  </font>
@@ -405,178 +443,178 @@ function levelUp()
 			  <table style="width:95%">
 			  	<tr>
 					<td style="padding:15px">
-						<input type="checkbox" id="Acrobatics" value="acrobatics"> Acrobatics
+						<input type="checkbox" value="acrobatics"> Acrobatics
 					</td>
 					<td style="padding:10px"><!-- these need ids -->
 						DEX
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-                                            <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="dexterity_mod">
+                                            <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="acrobatics">
                                                 
                                             </div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="Animal Handling" value="animalhandling"> Animal Handling
+						<input type="checkbox"  value="animalhandling"> Animal Handling
 					</td>
 					<td style="padding:10px">
 						WIS
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="wisdom_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="animalHandling"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="Arcana" value="arcana"> Arcana
+						<input type="checkbox"  value="arcana"> Arcana
 					</td>
 					<td style="padding:10px">
 						INT
 					</td>
 					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="inteligence_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="arcana"></div>
 					</td>
 					</tr>
 					<td style="padding:15px">
-						<input type="checkbox" id="Athletics" value="athletics"> Athletics
+						<input type="checkbox"  value="athletics"> Athletics
 					</td>
 					<td style="padding:10px">
 						STR
 					</td>
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-                                            <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="strength_mod">
+                                            <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="athletics">
                                             </div>
 					</td>
 					<td style="padding:15px;">
-						<input type="checkbox" id="Deception" value="deception"> Deception
+						<input type="checkbox"  value="deception"> Deception
 					</td>
 					<td style="padding:10px">
 						CHA
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="charisma_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="deception"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="History" value="history"> History
+						<input type="checkbox"  value="history"> History
 					</td>
 					<td style="padding:10px">
 						INT
 					</td>
 					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="inteligence_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="history"></div>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" id="Insight" value="insight"> Insight
+						<input type="checkbox"  value="insight"> Insight
 					</td>
 					<td style="padding:10px">
 						WIS
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="wisdom_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="insight"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="Intimidation" value="intimidation"> Intimidation
+						<input type="checkbox" value="intimidation"> Intimidation
 					</td>
 					<td style="padding:10px">
 						CHA
 					</td>
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="charisma_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="intimidation"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" id="Investigation" value="investigation"> Investigation
+						<input type="checkbox"  value="investigation"> Investigation
 					</td>
 					<td style="padding:10px">
 						INT
 					</td>
 					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="inteligence_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="investigation"></div>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" id="Medicine" value="medicine"> Medicine
+						<input type="checkbox" value="medicine"> Medicine
 					</td>
 					<td style="padding:10px">
 						WIS
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="wisdom_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="medicine"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="Nature" value="nature"> Nature
+						<input type="checkbox" value="nature"> Nature
 					</td>
 					<td style="padding:10px">
 						INT
 					</td>
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="inteligence_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="nature"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" id="Perception" value="perception"> Perception
+						<input type="checkbox"  value="perception"> Perception
 					</td>
 					<td style="padding:10px">
 						WIS
 					</td>
 					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="wisdom_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="perception"></div>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" id="Performance" value="performance"> Performance
+						<input type="checkbox"  value="performance"> Performance
 					</td>
 					<td style="padding:10px">
 						CHA
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="charisma_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="performance"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="Persuasion" value="persuasion"> Persuasion
+						<input type="checkbox" value="persuasion"> Persuasion
 					</td>
 					<td style="padding:10px">
 						CHA
 					</td>
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="charisma_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="persuasion"></div>
 					</td>
 						<td style="padding:15px">
-						<input type="checkbox" id="Religion" value="religion"> Religion
+						<input type="checkbox" > Religion
 					</td>
 					<td style="padding:10px">
 						INT
 					</td>
 					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="inteligence_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="religion"></div>
 					</td>
 				</tr>
 				<tr>
 					<td style="padding:15px">
-						<input type="checkbox" id="Alchemy" value="slieghtofhand"> Sleight of Hand
+						<input type="checkbox" value="slieghtofhand"> Sleight of Hand
 					</td>
 					<td style="padding:10px">
 						DEX
 					</td>
 					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="dexterity_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="sleightOfHand"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="Stealth" value="stealth"> Stealth
+						<input type="checkbox" value="stealth"> Stealth
 					</td>
 					<td style="padding:10px">
 						DEX
 					</td>
 					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="dexterity_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="stealth"></div>
 					</td>
 					<td style="padding:15px">
-						<input type="checkbox" id="Survival" value="survival"> Survival
+						<input type="checkbox" value="survival"> Survival
 					</td>
 					<td style="padding:10px">
 						WIS
 					</td>
 					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="wisdom_mod"></div>
+						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="survival"></div>
 					</td>
 				</tr>
 			  </table>
