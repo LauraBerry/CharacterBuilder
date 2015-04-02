@@ -177,26 +177,24 @@ function modifier(n)
 function levelUp()
 {
     var att=document.getElementById("currLevel");
-    att+=1;
-    currLevel.innerHTML=att;
+    att.innerHTML=parseInt(att.innerHTML)+1;
+    
     var str=document.getElementById('strength');
-    str+=3;
-    strength.innerHTML=str;
+    str.innerHTML=parseInt(str.innerHTML)+3;
+    
     var dex=document.getElementById('dexterity');
-    dex+=3;
-    dexterity.innerHTML=dex;
+    dex.innerHTML=parseInt(dex.innerHTML)+3;
+
     var con= document.getElementById('constitution');
-    con+=3;
-    constitution.innerHTML=con;
+    con.innerHTML=parseInt(con.innerHTML)+3;
     var int= document.getElementById('inteligence');
-    int+=3;
-    inteligence.innerHTML=int;
+    int.innerHTML=parseInt(int.innerHTML)+3;
+    
     var wis=document.getElementById('wisdom');
-    wis+=3;
-    wisdom.innerHTML=wis;
+    wis.innerHTML=parseInt(wis.innerHTML)+3;
+
     var cha= document.getElementById('charisma');
-    cha+=3;
-    charisma.innerHTML=cha;
+    cha.innerHTML=parseInt(cha.innerHTML)+3;
 }
 </script>
 
@@ -217,7 +215,7 @@ function levelUp()
 				<tr>
 					<td>
 						<font size="4">
-										<h1>Name</h1>
+										<h1>Character Name</h1>
 						 </font>
 						<input type="text"style="width:600px; align: center;">
 					</td>
@@ -230,6 +228,8 @@ function levelUp()
 							Features
 							</font>
 						</div>
+                                        </td>
+                                        <td>
 						<div style= "align:center; width:300px; height:100px; text-align:center; background-color:gainsboro;">
                                                     <div hidden id='dwarf1'>Darkvision</div>
                                                     <div hidden id='dwarf2'>Dwarven Resilience</div>
@@ -291,8 +291,8 @@ function levelUp()
                                                     <div hidden id='wizard1'>Spellcasting</div>
                                                     <div hidden id='wizard2'>Arcane Recovery</div>
                                                     <div hidden id='wizard3'>Arcane Tradition</div>
-						</div>
-					</td>
+                                        </div>
+                                    </td>
 				</tr>
 			</table>
                     <p></p>
