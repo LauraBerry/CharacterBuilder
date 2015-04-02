@@ -82,13 +82,18 @@ function rollGold(role){
 	if (role != 'Monk')
 		gold *= 10;
 	goldDisplay.innerHTML = gold;
-
 }
-
 function modifier(ident, value)
 {
     value += 10;
     ('ident'+'_mod').innerHTML = value;
+}
+
+function levelUp()
+{
+    var att=document.getElementById("currLevel");
+    att+=1;
+    currLevel.innerHTML=att;
 }
 </script>
 
@@ -103,8 +108,8 @@ function modifier(ident, value)
 			</font>
 		</div> 
                         <table align="right" width="8%" style=" background-color: white; font-size: 50px">
-                            <tr><td></td><td>1</td><td></td></tr>
-                            <tr><td><button>-</button></td><td><button>+</button></td></tr>
+                            <tr><td><div id="currLevel">1</div></td></tr>
+                            <tr><td><button onclick="levelUp()">Level Up</button></td></tr>
                         </table>
 		<div style="align:center;">
 			<table width="100%">
@@ -535,7 +540,7 @@ function modifier(ident, value)
 				Weapons: 	  
 				<select style="width: 300px;" id="weapon">
 				  <option value="start"> Please Select a weapon</option>
-                                  <option value="club"><table><tr><td>Club</td><td id="price">1sp</td></tr></table></option>
+                                  <option value=2><table><tr><td>Club</td><td id="price">1sp</td></tr></table></option>
                                 <option value='Dagger'><table><tr><td>Dagger</td><td id="price">2gp</td></tr></table></option>
                                   <option value='greatclub'><table><tr><td>Great Club</td><td id="price">2sp</td></tr></table></option>
                                   <option value='handaxe'><table><tr><td>Handaxe</td><td id="price">5gp</td></tr></table></option>
