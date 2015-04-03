@@ -6,10 +6,14 @@
 	  <title>Character Builder</title>
           <script>
 //Global variables contain the values of the chosen attributes and their corresponding modifier
+//Because we know there are only 6 attribute values, and that all functions that can access these values cannot be called until
+//they have all been instantiated, we use specific indexes into the arrays to track certain stats
+//Each array contains Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma in that order
 var attribute = [];
 var attributeMod = [];
 
 //This function is used to toggle the +5 modifier that a proficient skill receives, based on whether or not it is chosen as one
+//The function will also track the state it was in when it was clicked, so that if a skill in unselected, it will lose its proficiency bonus
 function prof(id, checked){
 	var tag = document.getElementById(id);
 	if (checked == true){
@@ -21,6 +25,7 @@ function prof(id, checked){
 }
 
 //This function keeps the skill proficiency checkbox disabled until the user selects all 6 attributes, at which point they are enabled
+//This allows us to maintain the integrity of the Attribute arrays, and so that elements cannot be made proficient before they are given a modifier value
 function toggleSkill(){
 	var bool = true;
 	if (attribute.length == 6)
@@ -30,8 +35,8 @@ function toggleSkill(){
 	elems[i].disabled = bool;
 }
 
-
 //This function assigns the ability modifier for a given attribute when it is selected, by indexing into the modifier global array
+//This allows the program to fill out all of the skills dependent on certain attributes as soon as a value for that attribute is chosen
 function setSkill(n){
 	switch(n){
 		case(0):
@@ -77,12 +82,14 @@ function setDice(n,ident){
 	}
     modifier(n-1);
 	toggleSkill();
+	document.getElementById("diceList"+n).disabled=true;
 }
 
 //This function randomly generates the six values that the user can assign to their attributes, by simulating 4 die rolls, removing the lowest, and finding the sum of the remaining 3
 function rollDice(){
 	diceList = [];
 	resetAtt();
+	document.getElementById("currLevel").innerHTML=1;
     for (var n = 0; n < 7; n++)	{
 		if (n == 0){
 			diceList[0] = "--";
@@ -102,6 +109,7 @@ function rollDice(){
 				lowest = d4;
 			total -= lowest;
 			diceList[n] = total;
+			document.getElementById("diceList"+n).disabled=false;
 			}
 		}
 	for (j=1; j<7; j++){
@@ -116,6 +124,7 @@ function rollDice(){
 	}
 }
 
+//This function displays the race features for the selected race, and changes them if the race choice changes
 function featureRace(that){
 	var feat = document.getElementsByClassName("featureRace");
 	for(i=0; i<feat.length; i++)
@@ -126,6 +135,7 @@ function featureRace(that){
 	}
 }
 
+//This function is the same as above, except for class features. If the class is changed, it will change the features to match the new class
 function featureClass(that){
 	var feat = document.getElementsByClassName("featureClass");
 	for(i=0; i<feat.length; i++)
@@ -193,8 +203,7 @@ function resetAtt(){
 }
 
 //This function calculates the value of the attribute modifier for each attribute as they are selected, and fills the attribute modifier array
-function modifier(n)
-{
+function modifier(n){
     var mod = attribute[n];
 	mod -= 10;
 	mod = Math.floor(mod / 2);
@@ -228,185 +237,182 @@ function modifier(n)
 function levelUp()
 {
     var att=document.getElementById("currLevel");
-    att.innerHTML=parseInt(att.innerHTML)+1;
+	att.innerHTML=parseInt(att.innerHTML)+1;
     
-    var str=document.getElementById('strength');
-    str.innerHTML=parseInt(str.innerHTML)+1;
+	var str=document.getElementById('strength');
+	str.innerHTML=parseInt(str.innerHTML)+1;
 	attribute[0] ++;
 	modifier(0);
 	
 	var dex=document.getElementById('dexterity');
-    dex.innerHTML=parseInt(dex.innerHTML)+1;
+	dex.innerHTML=parseInt(dex.innerHTML)+1;
 	attribute[1] ++;
 	modifier(1);
 	
 	var dex=document.getElementById('constitution');
-    dex.innerHTML=parseInt(dex.innerHTML)+1;
+	dex.innerHTML=parseInt(dex.innerHTML)+1;
 	attribute[2] ++;
 	modifier(2);
 	
 	var int= document.getElementById('inteligence');
-    int.innerHTML=parseInt(int.innerHTML)+1;
+	int.innerHTML=parseInt(int.innerHTML)+1;
 	attribute[3] ++;
 	modifier(3);
 	
 	var wis=document.getElementById('wisdom');
-    wis.innerHTML=parseInt(wis.innerHTML)+1;
+	wis.innerHTML=parseInt(wis.innerHTML)+1;
 	attribute[4] ++;
 	modifier(4);
 	
-	
-    var cha= document.getElementById('charisma');
-    cha.innerHTML=parseInt(cha.innerHTML)+1;
+	var cha= document.getElementById('charisma');
+	cha.innerHTML=parseInt(cha.innerHTML)+1;
 	attribute[5] ++;
 	modifier(5);
+	
 }
 </script>
-
         </head>
 		<body onLoad="toggleSkill()">
-		<p></p>
-		<div style="text-align:center;">
+                    <p></p>
+                    <div style="text-align:center;">
 			<font size="6">
-				<h1>Character Builder</h1>
+                            <h1>Character Builder</h1>
 			</font>
-		</div> 
+                    </div> 
                         <table align="right" width="8%" style=" background-color: white; font-size: 50px">
                             <tr><td><div id="currLevel">1</div></td></tr>
                             <tr><td><button class='box' onclick="levelUp()">Level Up</button></td></tr>
                         </table>
-		<div style="align:center;">
-			<table width="100%">
+                        <div style="align:center;">
+                            <table width="100%">
 				<tr>
-					<td>
-						<font size="4">
-										<h1>Character Name</h1>
-						 </font>
-						<input type="text"style="width:600px; align: center;">
-					</td>
-					<td>
-						<div style ="text-align:center; size: 4;"><form><input type="radio" name="sex" value="male" checked>Male <input type="radio" name="sex" value="female">Female</form></div>	
-					</td>
-					<td>
-						<div style="text-align:center;">
-							<font size="3">
-							Features
-							</font>
-						</div>
-                                        </td>
-                                        <td>
-						<div style= "align:center; width:300px; height:100px; text-align:center; background-color:gainsboro; overflow:auto">
-                                                    <div class="featureRace"  style="display:none;" id='dwarf1'>Darkvision</div>
-                                                    <div class="featureRace"  style="display:none;" id='dwarf2'>Dwarven Resilience</div>
-                                                    <div class="featureRace"  style="display:none;" id='dwarf3'>Dwarven Combat Training</div>
-                                                    <div class="featureRace"  style="display:none;" id='elf1'>Darkvision</div>
-                                                    <div class="featureRace"  style="display:none;" id='elf2'>Keend Senses</div>
-                                                    <div class="featureRace"  style="display:none;" id='elf3'>Fey Ancestry</div>
-                                                    <div class="featureRace"  style="display:none;" id='halfling1'> Lucy</div>
-                                                    <div class="featureRace"  style="display:none;" id='halfling2'> Brave</div>
-                                                    <div class="featureRace"  style="display:none;" id='halfling3'> Halfling Nimbleness</div>
-                                                    <div class="featureRace"  style="display:none;" id='dragonborn1'>Draconic Ancestry</div>
-                                                    <div class="featureRace"  style="display:none;" id='dragonborn2'>Breath Weapon</div>
-                                                    <div class="featureRace"  style="display:none;" id='dragonborn3'>Damage Resistance</div>
-                                                    <div class="featureRace"  style="display:none;" id='gnome1'>Darkvision</div>
-                                                    <div class="featureRace"  style="display:none;" id='gnome2'>Gnome Cunning</div>
-                                                    <div class="featureRace"  style="display:none;" id='gnome3'>Speak with Small Beasts</div>
-													<div class="featureRace"  style="display:none;" id='human1'></div>
-                                                    <div class="featureRace"  style="display:none;" id='human2'></div>
-                                                    <div class="featureRace"  style="display:none;" id='human3'></div>
-                                                    <div class="featureRace"  style="display:none;" id='halfelf1'>Darkvision</div>
-                                                    <div class="featureRace"  style="display:none;" id='halfelf2'>Fey Ancestry</div>
-                                                    <div class="featureRace"  style="display:none;" id='halfelf3'>Skill Versatility</div>
-                                                    <div class="featureRace"  style="display:none;" id='halforc1'>Menacing</div>
-                                                    <div class="featureRace"  style="display:none;" id='halforc2'>Relentless Endurance</div>
-                                                    <div class="featureRace"  style="display:none;" id='halforc3'>Savage Attacks</div>
-                                                    <div class="featureRace"  style="display:none;" id='tiefling1'>Darkvision</div>
-                                                    <div class="featureRace"  style="display:none;" id='tiefling2'>Hellish Resistance</div>
-                                                    <div class="featureRace"  style="display:none;" id='tiefling3'>Infernal Legacy</div>
-                                                    <div class="featureClass"  style="display:none;" id='Barbarian1'>Rage</div>
-                                                    <div class="featureClass"  style="display:none;" id='Barbarian2'>Unarmoured Defense</div>
-                                                    <div class="featureClass"  style="display:none;" id='Barbarian3'>Danger Sense</div>
-                                                    <div class="featureClass"  style="display:none;" id='Bard1'>Jack of all Trades</div>
-                                                    <div class="featureClass"  style="display:none;" id='Bard2'>Song of Rest</div>
-                                                    <div class="featureClass"  style="display:none;" id='Bard3'>Font of Inspiration</div>
-                                                    <div class="featureClass"  style="display:none;" id='Cleric1'>Spellcasting</div>
-                                                    <div class="featureClass"  style="display:none;" id='Cleric2'>Divine Domain</div>
-                                                    <div class="featureClass"  style="display:none;" id='Cleric3'>Channel Divinity</div>
-                                                    <div class="featureClass"  style="display:none;" id='Druid1'>Spell casting</div>
-                                                    <div class="featureClass"  style="display:none;" id='Druid2'>Wild Shape</div>
-                                                    <div class="featureClass"  style="display:none;" id='Druid3'>Druid Circle</div>
-                                                    <div class="featureClass"  style="display:none;" id='Fighter1'>Second Wind</div>
-                                                    <div class="featureClass"  style="display:none;" id='Fighter2'>Action Surge</div>
-                                                    <div class="featureClass"  style="display:none;" id='Fighter3'>Extra Attack</div>
-                                                    <div class="featureClass"  style="display:none;" id='Monk1'>Martial Arts</div>
-                                                    <div class="featureClass"  style="display:none;" id='Monk2'>Ki</div>
-                                                    <div class="featureClass"  style="display:none;" id='Monk3'>Unarmored Movement</div>
-                                                    <div class="featureClass"  style="display:none;" id='Paladin1'>Divine Sense</div>
-                                                    <div class="featureClass"  style="display:none;" id='Paladin2'>Lay on Hands</div>
-                                                    <div class="featureClass"  style="display:none;" id='Paladin3'>Fighting Style</div>
-                                                    <div class="featureClass"  style="display:none;" id='Ranger1'>Favored Enemy</div>
-                                                    <div class="featureClass"  style="display:none;" id='Ranger2'>Natural Explorer</div>
-                                                    <div class="featureClass"  style="display:none;" id='Ranger3'>Spellcasting</div>
-                                                    <div class="featureClass"  style="display:none;" id='Rogue1'>Sneak Attack</div>
-                                                    <div class="featureClass"  style="display:none;" id='Rogue2'>Cunnin Action</div>
-                                                    <div class="featureClass"  style="display:none;" id='Rogue3'>Uncanny Dodge</div>
-                                                    <div class="featureClass"  style="display:none;" id='Sorcerer1'>Spellcasting</div>
-                                                    <div class="featureClass"  style="display:none;" id='Sorcerer2'>Sorcerous Origin</div>
-                                                    <div class="featureClass"  style="display:none;" id='Sorcerer3'>Font of Magic</div>
-                                                    <div class="featureClass"  style="display:none;" id='Warlock1'>Pact Magic</div>
-                                                    <div class="featureClass"  style="display:none;" id='Warlock2'>Eldritch Invocations</div>
-                                                    <div class="featureClass"  style="display:none;" id='Warlock3'>Pact Boon</div>
-                                                    <div class="featureClass"  style="display:none;" id='Wizard1'>Spellcasting</div>
-                                                    <div class="featureClass"  style="display:none;" id='Wizard2'>Arcane Recovery</div>
-                                                    <div class="featureClass"  style="display:none;" id='Wizard3'>Arcane Tradition</div>
+                                    <td>
+                                        <font size="4">
+                                            <h1>Character Name</h1>
+                                        </font>
+                                            <input type="text"style="width:600px; align: center;">
+                                    </td>
+                                    <td>
+                                        <div style ="text-align:center; size: 4;"><form><input type="radio" name="sex" value="male" checked>Male <input type="radio" name="sex" value="female">Female</form></div>	
+                                    </td>
+                                    <td>
+					<div style="text-align:center;">
+                                            <font size="3">
+                                                Features
+                                            </font>
                                         </div>
                                     </td>
-				</tr>
+                                    <td>
+					<div style= "align:center; width:300px; height:100px; text-align:center; background-color:gainsboro; overflow:auto">
+                                        <div class="featureRace"  style="display:none;" id='dwarf1'>Darkvision</div>
+                                        <div class="featureRace"  style="display:none;" id='dwarf2'>Dwarven Resilience</div>
+                                        <div class="featureRace"  style="display:none;" id='dwarf3'>Dwarven Combat Training</div>
+                                        <div class="featureRace"  style="display:none;" id='elf1'>Darkvision</div>
+                                        <div class="featureRace"  style="display:none;" id='elf2'>Keend Senses</div>
+                                        <div class="featureRace"  style="display:none;" id='elf3'>Fey Ancestry</div>
+                                        <div class="featureRace"  style="display:none;" id='halfling1'> Lucy</div>
+                                        <div class="featureRace"  style="display:none;" id='halfling2'> Brave</div>
+                                        <div class="featureRace"  style="display:none;" id='halfling3'> Halfling Nimbleness</div>
+                                        <div class="featureRace"  style="display:none;" id='dragonborn1'>Draconic Ancestry</div>
+                                        <div class="featureRace"  style="display:none;" id='dragonborn2'>Breath Weapon</div>
+                                        <div class="featureRace"  style="display:none;" id='dragonborn3'>Damage Resistance</div>
+                                        <div class="featureRace"  style="display:none;" id='gnome1'>Darkvision</div>
+                                        <div class="featureRace"  style="display:none;" id='gnome2'>Gnome Cunning</div>
+                                        <div class="featureRace"  style="display:none;" id='gnome3'>Speak with Small Beasts</div>
+					<div class="featureRace"  style="display:none;" id='human1'></div>
+                                        <div class="featureRace"  style="display:none;" id='human2'></div>
+                                        <div class="featureRace"  style="display:none;" id='human3'></div>
+                                        <div class="featureRace"  style="display:none;" id='halfelf1'>Darkvision</div>
+                                        <div class="featureRace"  style="display:none;" id='halfelf2'>Fey Ancestry</div>
+                                        <div class="featureRace"  style="display:none;" id='halfelf3'>Skill Versatility</div>
+                                        <div class="featureRace"  style="display:none;" id='halforc1'>Menacing</div>
+                                        <div class="featureRace"  style="display:none;" id='halforc2'>Relentless Endurance</div>
+                                        <div class="featureRace"  style="display:none;" id='halforc3'>Savage Attacks</div>
+                                        <div class="featureRace"  style="display:none;" id='tiefling1'>Darkvision</div>
+                                        <div class="featureRace"  style="display:none;" id='tiefling2'>Hellish Resistance</div>
+                                        <div class="featureRace"  style="display:none;" id='tiefling3'>Infernal Legacy</div>
+                                        <div class="featureClass"  style="display:none;" id='Barbarian1'>Rage</div>
+                                        <div class="featureClass"  style="display:none;" id='Barbarian2'>Unarmoured Defense</div>
+                                        <div class="featureClass"  style="display:none;" id='Barbarian3'>Danger Sense</div>
+                                        <div class="featureClass"  style="display:none;" id='Bard1'>Jack of all Trades</div>
+                                        <div class="featureClass"  style="display:none;" id='Bard2'>Song of Rest</div>
+                                        <div class="featureClass"  style="display:none;" id='Bard3'>Font of Inspiration</div>
+                                        <div class="featureClass"  style="display:none;" id='Cleric1'>Spellcasting</div>
+                                        <div class="featureClass"  style="display:none;" id='Cleric2'>Divine Domain</div>
+                                        <div class="featureClass"  style="display:none;" id='Cleric3'>Channel Divinity</div>
+                                        <div class="featureClass"  style="display:none;" id='Druid1'>Spell casting</div>
+                                        <div class="featureClass"  style="display:none;" id='Druid2'>Wild Shape</div>
+                                        <div class="featureClass"  style="display:none;" id='Druid3'>Druid Circle</div>
+                                        <div class="featureClass"  style="display:none;" id='Fighter1'>Second Wind</div>
+                                        <div class="featureClass"  style="display:none;" id='Fighter2'>Action Surge</div>
+                                        <div class="featureClass"  style="display:none;" id='Fighter3'>Extra Attack</div>
+                                        <div class="featureClass"  style="display:none;" id='Monk1'>Martial Arts</div>
+                                        <div class="featureClass"  style="display:none;" id='Monk2'>Ki</div>
+                                        <div class="featureClass"  style="display:none;" id='Monk3'>Unarmored Movement</div>
+                                        <div class="featureClass"  style="display:none;" id='Paladin1'>Divine Sense</div>
+                                        <div class="featureClass"  style="display:none;" id='Paladin2'>Lay on Hands</div>
+                                        <div class="featureClass"  style="display:none;" id='Paladin3'>Fighting Style</div>
+                                        <div class="featureClass"  style="display:none;" id='Ranger1'>Favored Enemy</div>
+                                        <div class="featureClass"  style="display:none;" id='Ranger2'>Natural Explorer</div>
+                                        <div class="featureClass"  style="display:none;" id='Ranger3'>Spellcasting</div>
+                                        <div class="featureClass"  style="display:none;" id='Rogue1'>Sneak Attack</div>
+                                        <div class="featureClass"  style="display:none;" id='Rogue2'>Cunnin Action</div>
+                                        <div class="featureClass"  style="display:none;" id='Rogue3'>Uncanny Dodge</div>
+                                        <div class="featureClass"  style="display:none;" id='Sorcerer1'>Spellcasting</div>
+                                        <div class="featureClass"  style="display:none;" id='Sorcerer2'>Sorcerous Origin</div>
+                                        <div class="featureClass"  style="display:none;" id='Sorcerer3'>Font of Magic</div>
+                                        <div class="featureClass"  style="display:none;" id='Warlock1'>Pact Magic</div>
+                                        <div class="featureClass"  style="display:none;" id='Warlock2'>Eldritch Invocations</div>
+                                        <div class="featureClass"  style="display:none;" id='Warlock3'>Pact Boon</div>
+                                        <div class="featureClass"  style="display:none;" id='Wizard1'>Spellcasting</div>
+                                        <div class="featureClass"  style="display:none;" id='Wizard2'>Arcane Recovery</div>
+                                        <div class="featureClass"  style="display:none;" id='Wizard3'>Arcane Tradition</div>
+                                    </div>
+                                </td>
+                            </tr>
 			</table>
                     <p></p>
                     <font size="3">Height</font><input type="text" style="width:50px; heigh:100px; background-color: white; text-align: center">
                     <font size="3">Weight</font><input type="text" style="width:50px; heigh:100px; background-color: white; text-align: center">
                     <font size="3">Age</font><input type="text" style="width:50px; heigh:100px; background-color: white; text-align: center">
-                    
-
-		<font size="4">
-                <h1>Race</h1>   
-		  </font>
-		  <p>   
-			  <select style="width: 700px;" id="race" onchange="featureRace(this)">
-                          <option> Please choose a race</option>
-                          <option value="dragonborn">Dragonborn</option>
-                          <option value="dwarf"> Dwarf</option>
-						  <option value="elf">Elf</option>
-                          <option value="gnome"> Gnome </option>
-                          <option value="halfelf">Half-Elf</option>
-                          <option value="halforc">Half-Orc</option>
-                          <option value="halfling">Halfling</option>
-						  <option value="human">Human</option>
-						  <option value="tiefling">Tiefling</option>
-			 </select>
-		 </p>
-		 <font size="4">
-		  <h1>Class</h1>
-		  </font>
-			<p>
-				  <select style="width: 700px;" id="role" onchange="featureClass(this)">
-                                  <option>Please choose a class</option>
-                                  <option value="Barbarian">Barbarian</option>
-                                  <option value="Bard">Bard</option>
-                                  <option value="Cleric"> Cleric</option>
-                                  <option value="Drui1d">Druid</option>
-                                  <option value="Fighter">Fighter</option>
-                                  <option value="Monk">Monk</option>
-                                  <option value="Paladin">Paladin</option>
-								  <option value="Ranger">Ranger</option>
-                                  <option value="Rogue">Rogue</option>
-                                  <option value="Sorcerer">Sorcerer</option>
-								  <option value="Warlock">Warlock</option>
-                                  <option value="Wizard">Wizard</option>
-				  </select>
-			 </p>
-		 </div>
+                    <font size="4">
+                            <h1>Race</h1>   
+                    </font>
+                    <p>   
+                        <select style="width: 700px;" id="race" onchange="featureRace(this)">
+                            <option> Please choose a race</option>
+                            <option value="dragonborn">Dragonborn</option>
+                            <option value="dwarf"> Dwarf</option>
+                            <option value="elf">Elf</option>
+                            <option value="gnome"> Gnome </option>
+                            <option value="halfelf">Half-Elf</option>
+                            <option value="halforc">Half-Orc</option>
+                            <option value="halfling">Halfling</option>
+                            <option value="human">Human</option>
+                            <option value="tiefling">Tiefling</option>
+                        </select>
+                    </p>
+                    <font size="4">
+                        <h1>Class</h1>
+                    </font>
+                    <p>
+                        <select style="width: 700px;" id="role" onchange="featureClass(this)">
+                            <option>Please choose a class</option>
+                            <option value="Barbarian">Barbarian</option>
+                            <option value="Bard">Bard</option>
+                            <option value="Cleric"> Cleric</option>
+                            <option value="Drui1d">Druid</option>
+                            <option value="Fighter">Fighter</option>
+                            <option value="Monk">Monk</option>
+                            <option value="Paladin">Paladin</option>
+                            <option value="Ranger">Ranger</option>
+                            <option value="Rogue">Rogue</option>
+                            <option value="Sorcerer">Sorcerer</option>
+                            <option value="Warlock">Warlock</option>
+                            <option value="Wizard">Wizard</option>
+                        </select>
+                    </p>
+		</div>
                 <div style="text-align:center">
                     <font size="4">
                         <h1>Character Stats</h1>
@@ -414,524 +420,499 @@ function levelUp()
                 </div>
 		 <p>
 		 <div style ="text-align:center; size: 4;"><button type="button" id="load" value="Stats" style="width:100px; height:20px" onclick="rollDice()"> Generate Stats</button></div>
-		   <p></p>
-                   <table width="%100" style="background-color:ForestGreen; align:center">
-                       <tr>
+                    <p></p>
+                    <table width="%100" style="background-color:ForestGreen; align:center">
+                        <tr>
                             <td padding="50px">
-                                 <select id="diceList1" onchange="setDice(1,'strength')" style="width:80px"></select>
+                                <select id="diceList1" onchange="setDice(1,'strength')" style="width:80px"></select>
                             </td>
                             <td padding="50px">
-                              <select id="diceList2" onchange="setDice(2,'dexterity')" style="width:80px"></select>
+                                <select id="diceList2" onchange="setDice(2,'dexterity')" style="width:80px"></select>
                             </td>
                             <td padding="50px">
                                 <select id="diceList3" onchange="setDice(3,'constitution')" style="width:80px"></select>
                             </td>
                             <td padding="50px">
-                                 <select id="diceList4" onchange="setDice(4,'inteligence')"style="width:80px"></select>
+                                <select id="diceList4" onchange="setDice(4,'inteligence')"style="width:80px"></select>
                             </td>
                             <td padding="50px">
-                                 <select id="diceList5" onchange="setDice(5,'wisdom')" style="width:80px"></select>
+                                <select id="diceList5" onchange="setDice(5,'wisdom')" style="width:80px"></select>
                             </td>
                             <td padding="50px">
                                  <select id="diceList6" onchange="setDice(6,'charisma')" style="width:80px"></select>
                             </td>
-                       </tr>
-                   </table>
-		  <table style="width:100%">
-		  <tr>
+                        </tr>
+                    </table>
+                    <table style="width:100%">
+                        <tr>
 			  <td></td>
 			  <td><div style="text-align:center;width:100px">Ability<p></p>Score</div></td>
 			  <td> <div style="text-align:center;width:100px">Ability<p></p>Modifier</div></td>
 			  <td></td>
 			  <td><div style="text-align:center;width:100px">Ability<p></p>Score</div></td>
 			  <td> <div style="text-align:center;width:100px">Ability<p></p>Modifier</div></td>
-		  </tr>
-		  <tr>
+                        </tr>
+                        <tr>
 			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
-					<div style=" text-align:center"> 
-						<p>STR</p> 
-						<p>Strength</p>
-					 </div>
-				 </div>
-			 </td>
-			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength">
-                                    
+                            <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+				<div style=" text-align:center"> 
+                                    <p>STR</p> 
+                                    <p>Strength</p>
+                                </div>
                             </div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength_mod">
-                                
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength"></div>
+			</td>
+			<td>
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="strength_mod"></div>
+			</td>
+			<td>
+				<div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+				<div style="text-align:center"> <!-- this needs ids-->
+                                    <p>INT</p> 
+                                    <p>Inteligence</p>
+                                </div>
                             </div>
 			</td>
-				 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
-					<div style="text-align:center"> <!-- this needs ids-->
-						<p>INT</p> 
-						<p>Inteligence</p>
-					 </div>
-				 </div>
-			 </td>
-			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence">
-                                 
-                             </div>
+			<td>
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence"></div>
 			</td>
 			<td>
 				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="inteligence_mod"></div>
+                       </td>
+                       </tr>
+                       <tr>
+			 <td>
+                            <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+				<div style=" text-align: center"> 
+                                    <p>DEX</p> 
+                                    <p>Dexterity</p>
+                                </div>
+                            </div>
 			</td>
-		   </tr>
-		   <tr>
-			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
-					<div style=" text-align: center"> 
-						<p>DEX</p> 
-						<p>Dexterity</p>
-					 </div>
-				 </div>
-			 </td>
-			 <td>
+			<td>
 				<div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity"></div>
 			</td>
 			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_mod">
-                                
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="dexterity_mod"></div>
+			</td>
+			<td>
+                            <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+                                <div style=" text-align: center"> 
+                                    <p>WIS</p> 
+                                    <p>Wisdom</p>
+                                </div>
                             </div>
 			</td>
-			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
-					<div style=" text-align: center"> 
-						<p>WIS</p> 
-						<p>Wisdom</p>
-					 </div>
-				 </div>
-			 </td>
-			 <td>
-				 <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom"></div>
+			<td>
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="wisdom"></div>
 			</td>
 			<td>
                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px"id="wisdom_mod"></div>
 			</td>
+                    </tr>
+                    <tr>
+			 <td>
+                            <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+				<div style="text-align: center"> 
+                                    <p>CON</p> 
+                                    <p>Constitution</p>
+                                </div>
+                            </div>
+			 </td>
+			 <td>
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution"></div>
+			</td>
+			<td>
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution_mod"></div>
+			</td>
+			<td>
+                            <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
+				<div style="text-align: center"> 
+                                    <p>CHA</p> 
+                                    <p>Charisma</p>
+                                </div>
+                            </div>
+			 </td>
+			 <td>
+                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma"></div>
+			</td>
+			<td>
+                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma_mod"></div>
+                        </td>
+                   </tr>
+                </table>
+            <p></p>
+            </div>
+            <p>
+            <div style="background-color:LimeGreen">
+                    <table style="width:100%">
+			<tr>
+                            <div style="position:relative; font-family:Papyrus">
+                                <td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td><td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td><td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td>
+                            </div>
+                        </tr>
+                    </table>
+		</p>
+		<hr style="color:black">
+		<div style="background-color:LimeGreen;">
+                    <table style="width:95%">
+                        <tr>
+                            <td style="padding:15px">
+                            	<input type="checkbox" class="box" onchange="prof('acrobatics',this.checked)"> Acrobatics
+                            </td>
+                            <td style="padding:10px"><!-- these need ids -->
+                                DEX
+                            </td>
+                            <td style= "padding: 10px; border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="acrobatics"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" value="animalhandling" onchange="prof('animalHandling',this.checked)"> Animal Handling
+                            </td>
+                            <td style="padding:10px">
+                                WIS
+                            </td>
+                            <td style= "padding: 10px; border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="animalHandling"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox"  class="box" onchange="prof('arcana',this.checked)"> Arcana
+                            </td>
+                            <td style="padding:10px">
+                                INT
+                            </td>
+                            <td style= "padding: 10px;">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="arcana"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box"  onchange="prof('athletics',this.checked)"> Athletics
+                            </td>
+                            <td style="padding:10px">
+                                STR
+                            </td>
+                            <td style= "padding: 10px;border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="athletics"></div>
+                            </td>
+                            <td style="padding:15px;">
+                                <input type="checkbox"  class="box" onchange="prof('deception',this.checked)"> Deception
+                            </td>
+                            <td style="padding:10px">
+                                CHA
+                            </td>
+                            <td style= "padding: 10px; border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="deception"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('history',this.checked)"> History
+                            </td>
+                            <td style="padding:10px">
+                                INT
+                            </td>
+                            <td style= "padding: 10px;">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="history"></div>
+                            </td>
 			</tr>
-			  <tr>
-			 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
-					<div style="text-align: center"> 
-						<p>CON</p> 
-						<p>Constitution</p>
-					 </div>
-				 </div>
-			 </td>
-			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution">
-                                 
-                             </div>
-			</td>
-			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="constitution_mod">
-                                
-                            </div>
-			</td>
-				 <td>
-				 <div style="width:85px;padding:10px;margin:20px;background-color:burlywood; align: left"> 
-					<div style="text-align: center"> 
-						<p>CHA</p> 
-						<p>Charisma</p>
-					 </div>
-				 </div>
-			 </td>
-			 <td>
-                             <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma">
-                                 
-                             </div>
-			</td>
-			<td>
-                            <div style="background-color:burlywood; width:100px;height:100px; align: center; text-align:center; font-size:50px" id="charisma_mod">
-                                
-                            </div>
-			</td>
-		   </tr>
-		</table>
-		 <p></p>
-	</div>
-		 <p>
-		 <div style="background-color:LimeGreen">
-			 <table style="width:100%">
-				<tr>
-				<!-- skill modifier box should equal the skill modifier from above.-->
-				<div style="position:relative; font-family:Papyrus">
-					<td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td><td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td><td width="20px"> Skill Name</td> <td width="30px"> Key Ability</td> <td width="20px"> Skill Modifier</td>
-				</div>
-				</tr>
-			 </table>
-			 </p>
-			 <hr style="color:black">
-			 <div style="background-color:LimeGreen;">
-			  <table style="width:95%">
-			  	<tr>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('acrobatics',this.checked)"> Acrobatics
-					</td>
-					<td style="padding:10px"><!-- these need ids -->
-						DEX
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-                                            <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="acrobatics">
-                                                
-                                            </div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" value="animalhandling" onchange="prof('animalHandling',this.checked)"> Animal Handling
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="animalHandling"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox"  class="box" onchange="prof('arcana',this.checked)"> Arcana
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="arcana"></div>
-					</td>
-					</tr>
-					<td style="padding:15px">
-						<input type="checkbox" class="box"  onchange="prof('athletics',this.checked)"> Athletics
-					</td>
-					<td style="padding:10px">
-						STR
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-                                            <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="athletics">
-                                            </div>
-					</td>
-					<td style="padding:15px;">
-						<input type="checkbox"  class="box" onchange="prof('deception',this.checked)"> Deception
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="deception"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('history',this.checked)"> History
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="history"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('insight',this.checked)"> Insight
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="insight"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('intimidation',this.checked)"> Intimidation
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="intimidation"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('investigation',this.checked)"> Investigation
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="investigation"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('medicine',this.checked)"> Medicine
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="medicine"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('nature',this.checked)"> Nature
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="nature"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('perception',this.checked)"> Perception
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="perception"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('performance',this.checked)"> Performance
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="performance"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('persuasion',this.checked)"> Persuasion
-					</td>
-					<td style="padding:10px">
-						CHA
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="persuasion"></div>
-					</td>
-						<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('religion',this.checked)"> Religion
-					</td>
-					<td style="padding:10px">
-						INT
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="religion"></div>
-					</td>
-				</tr>
-				<tr>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('sleightOfHand',this.checked)"> Sleight of Hand
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px; border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="sleightOfHand"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('stealth',this.checked)"> Stealth
-					</td>
-					<td style="padding:10px">
-						DEX
-					</td>
-					<td style= "padding: 10px;border-right: thin solid; border-color:black">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="stealth"></div>
-					</td>
-					<td style="padding:15px">
-						<input type="checkbox" class="box" onchange="prof('survival',this.checked)"> Survival
-					</td>
-					<td style="padding:10px">
-						WIS
-					</td>
-					<td style= "padding: 10px;">
-						<div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="survival"></div>
-					</td>
-				</tr>
-			  </table>
-		  </div>
-		 <p></p>
-		 <div style="font-family:Papyrus">
-			 <div style="background-color:SeaGreen; height:170px">
-                            <font size="4">
-				 <h1 style= "text-align:center">Gold</h1>
-                             </font>
-                            <p>
-                                <div style ="text-align:center; size: 4;"><button onclick="rollGold('role')"> Generate Gold</button></div>   
+			<tr>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('insight',this.checked)"> Insight
+                            </td>
+                            <td style="padding:10px">
+                                WIS
+                            </td>
+                            <td style= "padding: 10px; border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="insight"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('intimidation',this.checked)"> Intimidation
+                            </td>
+                            <td style="padding:10px">
+                                CHA
+                            </td>
+                            <td style= "padding: 10px;border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="intimidation"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('investigation',this.checked)"> Investigation
+                            </td>
+                            <td style="padding:10px">
+                                INT
+                            </td>
+                            <td style= "padding: 10px;">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="investigation"></div>
+                            </td>
+			</tr>
+			<tr>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('medicine',this.checked)"> Medicine
+                            </td>
+                            <td style="padding:10px">
+                                WIS
+                            </td>
+                            <td style= "padding: 10px; border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="medicine"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('nature',this.checked)"> Nature
+                            </td>
+                            <td style="padding:10px">
+                                INT
+                            </td>
+                            <td style= "padding: 10px;border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="nature"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('perception',this.checked)"> Perception
+                            </td>
+                            <td style="padding:10px">
+                                WIS
+                            </td>
+                            <td style= "padding: 10px;">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="perception"></div>
+                            </td>
+			</tr>
+			<tr>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('performance',this.checked)"> Performance
+                            </td>
+                            <td style="padding:10px">
+                                CHA
+                            </td>
+                            <td style= "padding: 10px; border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="performance"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('persuasion',this.checked)"> Persuasion
+                            </td>
+                            <td style="padding:10px">
+                                CHA
+                            </td>
+                            <td style= "padding: 10px;border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="persuasion"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('religion',this.checked)"> Religion
+                            </td>
+                            <td style="padding:10px">
+                                INT
+                            </td>
+                            <td style= "padding: 10px;">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="religion"></div>
+                            </td>
+			</tr>
+			<tr>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('sleightOfHand',this.checked)"> Sleight of Hand
+                            </td>
+                            <td style="padding:10px">
+                                DEX
+                            </td>
+                            <td style= "padding: 10px; border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="sleightOfHand"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('stealth',this.checked)"> Stealth
+                            </td>
+                            <td style="padding:10px">
+                                DEX
+                            </td>
+                            <td style= "padding: 10px;border-right: thin solid; border-color:black">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px"id="stealth"></div>
+                            </td>
+                            <td style="padding:15px">
+                                <input type="checkbox" class="box" onchange="prof('survival',this.checked)"> Survival
+                            </td>
+                            <td style="padding:10px">
+                                WIS
+                            </td>
+                            <td style= "padding: 10px;">
+                                <div style=" background-color:white; width:50px;height:50px; align:center; text-align:center; font-size:20px" id="survival"></div>
+                            </td>
+                        </tr>
+                    </table>
+		</div>
+		<p></p>
+		<div style="font-family:Papyrus">
+		<div style="background-color:SeaGreen; height:170px">
+                    <font size="4">
+                        <h1 style= "text-align:center">Gold</h1>
+                    </font>
+                    <p>
+                        <div style ="text-align:center; size: 4;"><button onclick="rollGold('role')"> Generate Gold</button></div>   
+                        <p></p>
+                        Gold: <div style="width:300px; border: solid gray; background-color:white;"id="goldDisplay"></div>
+                    </p>
+                    <p></p>
+		</div>
+		<font size="4">
+                    <h1 style="text-align:center"> Equipment</h1>
+                </font>
+		<p>             
+		Armour: 	  
+		<select style="width: 300px;" id="armour">
+                    <option value="start">Please Select Armour</option>
+                    <option value="Padded"><table><tr><td>Padded</option>
+                    <option value="Leather"><table><tr><td>Leather</option>
+                    <option value="StuddedLeather"><table><tr><td>Studded Leather</option>
+                    <option value='Hide'><table><tr><td>Hide</option>
+                    <option value='Chain Shirt'><table><tr><td>Chain Shirt</option>
+                    <option value='Scale Mail'><table><tr><td>Scale Mail</option>
+                    <option value='Breastplate'><table><tr><td>Breastplate</option>
+                    <option value='Halfplate'><table><tr><td>Halfplate</option>
+                    <option value='RingMail'><table><tr><td>Ring Mail</option>
+                    <option value='Chain Mail'><table><tr><td>Chain Mail</option>
+                    <option value='Splint'><table><tr><td>Splint</option>
+                    <option value='Plate'><table><tr><td>Plate</option>
+                    <option value='Shield'><table><tr><td>Shield</option>
+		</select>
+		</p>
+		<p>
+		Weapons: 	  
+		<select style="width: 300px;" id="weapon">
+                    <option value="start"> Please Select a Weapon</option>
+                    <option value=2>Club</option>
+                    <option value='Dagger'>Dagger</option>
+                    <option value='greatclub'>Great Club</option>
+                    <option value='handaxe'>Handaxe</option>
+                    <option value='javelin'>Javelin</option>
+                    <option value='lighthammer'>Light Hammer</option>
+                    <option value='mace'>Mace</option>
+                    <option value='quaterstaff'>Quater Staff</option>
+                    <option value='sickle'>Sickle</option>
+                    <option value='spear'>Spear</option>
+                    <option value='crossbow'>Crossbow</option>
+                    <option value='dart'>Dart</option>
+                    <option value='shortbow'>Shortbow</option>
+                    <option value='sling'>Sling</option>
+                    <option value='battleaxe'>Battleaxe</option>
+                    <option value="flail">Flail</option>
+                    <option value="glaive">Glaive</option>
+                    <option value="greataxe">Greataxe</option>                                  
+                    <option value="greatsword">Greatsword</option>
+                    <option value="halberd">Halberd</option>
+                    <option value="lance">Lance</option>
+                    <option value="longsword">Longsword</option>
+                    <option value="maul">Maul</option>
+                    <option value="morningstar">Morningstar</option>
+                    <option value="pike">Pike</option>
+                    <option value="rapier">Rapier</option>
+                    <option value="scimitar">Scimitar</option>
+                    <option value="shortsword">Shortsword</option>
+                    <option value="trident">Trident</option>
+                    <option value="warpick">War Pick</option>
+                    <option value="warhammer">Warhammer</option>
+                    <option value="whip">Whip</option>
+                    <option value="blowgun">Blowgun</option>
+                    <option value="crossbowhand">Crossbow Hand</option>
+                    <option value="crossbowheavy">Crossbow Heavy</option>
+                    <option value="longbow">Longbow</option>
+                    <option value="net">Net</option>
+                </select>
+            </p>
+            <div style="background-color: DarkGreen">
+		<font size="5">
+                    <h1 style = "text-align:center">Background</h1>
+		</font>
+		<p>
+                    <table style= "width:100%">
+			<tr>
+                            <td>
+                                <form action="">
+                                    <input type="checkbox" id="background" >Custom Background <button type="button" id="load" value="gold" style="width:100px; height:20px" onclick="showcustom(background)"> ok</button>
+                                </form>
                                 <p></p>
-                                Gold: <div style="width:300px; border: solid gray; background-color:white;"id="goldDisplay"></div>
-                            </p>
-                            <p></p>
-			</div>
-			 <font size="4">
-			 <h1 style="text-align:center"> Equipment</h1>
-                         </font>
-			 <p>
-                             
-				Armour: 	  
-				<select style="width: 300px;" id="armour">
-				  <option value="start">Please Select Armour</option>
-                                  <option value="Padded"><table><tr><td>Padded</td><td id="price">5gp</td></tr></table></option>
-				  <option value="Leather"><table><tr><td>Leather</td><td id="price">10gp</td></tr></table></option>
-				  <option value="StuddedLeather"><table><tr><td>Studded Leather</td><td id="price">45gp</td></tr></table></option>
-                                  <option value='Hide'><table><tr><td>Hide</td><td id="price">10gp</td></tr></table></option>
-                                  <option value='Chain Shirt'><table><tr><td>Chain Shirt</td><td id="price">50gp</td></tr></table></option>
-                                  <option value='Scale Mail'><table><tr><td>Scale Mail</td><td id="price">50gp</td></tr></table></option>
-                                  <option value='Breastplate'><table><tr><td>Breastplate</td><td id="price">100gp</td></tr></table></option>
-                                  <option value='Halfplate'><table><tr><td>Halfplate</td><td id="price">750gp</td></tr></table></option>
-                                  <option value='RingMail'><table><tr><td>Ring Mail</td><td id="price">30gp</td></tr></table></option>
-                                  <option value='Chain Mail'><table><tr><td>Chain Mail</td><td id="price">75gp</td></tr></table></option>
-                                  <option value='Splint'><table><tr><td>Splint</td><td id="price">200gp</td></tr></table></option>
-                                  <option value='Plate'><table><tr><td>Plate</td><td id="price">1 5000gp</td></tr></table></option>
-                                  <option value='Shield'><table><tr><td>Shield</td><td id="price">10gp</td></tr></table></option>
-				 </select>
-			 </p>
-			 <p>
-				Weapons: 	  
-				<select style="width: 300px;" id="weapon">
-				  <option value="start"> Please Select a weapon</option>
-                                  <option value=2><table><tr><td>Club</td><td id="price">1sp</td></tr></table></option>
-                                <option value='Dagger'><table><tr><td>Dagger</td><td id="price">2gp</td></tr></table></option>
-                                  <option value='greatclub'><table><tr><td>Great Club</td><td id="price">2sp</td></tr></table></option>
-                                  <option value='handaxe'><table><tr><td>Handaxe</td><td id="price">5gp</td></tr></table></option>
-                                  <option value='javelin'><table><tr><td>Javelin</td><td id="price">5sp</td></tr></table></option>
-                                  <option value='lighthammer'><table><tr><td>Light Hammer</td><td id="price">2gp</td></tr></table></option>
-                                  <option value='mace'><table><tr><td>Mace</td><td id="price">5gp</td></tr></table></option>
-                                  <option value='quaterstaff'><table><tr><td>Quater Staff</td><td id="price">2sp</td></tr></table></option>
-                                  <option value='sickle'><table><tr><td>Sickle</td><td id="price">1gp</td></tr></table></option>
-                                  <option value='spear'><table><tr><td>Spear</td><td id="price">1gp</td></tr></table></option>
-                                  <option value='crossbow'><table><tr><td>Crossbow</td><td id="price">25gp</td></tr></table></option>
-                                  <option value='dart'><table><tr><td>Dart</td><td id="price">5cp</td></tr></table></option>
-                                  <option value='shortbow'><table><tr><td>Shortbow</td><td id="price">25gp</td></tr></table></option>
-                                  <option value='sling'><table><tr><td>Sling</td><td id="price">1sp</td></tr></table></option>
-                                  <option value='battleaxe'><table><tr><td>Battleaxe</td><td id="price">10gp</td></tr></table></option>
-                                  <option value="flail"><table><tr><td>Flail</td><td id="price">10gp</td></tr></table></option>
-                                  <option value="glaive"><table><tr><td>Glaive</td><td id="price">20gp</td></tr></table></option>
-                                  <option value="greataxe"><table><tr><td>Greataxe</td><td id="price">30gp</td></tr></table></option>                                  
-				  <option value="greatsword"><table><tr><td>Greatsword</td><td id="price">50gp</td></tr></table></option>
-                                  <option value="halberd"><table><tr><td>Halberd</td><td id="price">20gp</td></tr></table></option>
-                                  <option value="lance"><table><tr><td>Lance</td><td id="price">20gp</td></tr></table></option>
-                                  <option value="longsword"><table><tr><td>Longsword</td><td id="price">15gp</td></tr></table></option>
-                                  <option value="maul"><table><tr><td>Maul</td><td id="price">10gp</td></tr></table></option>
-                                  <option value="morningstar"><table><tr><td>Morningsta</td><td id="price">15gp</td></tr></table></option>
-                                  <option value="pike"><table><tr><td>Pike</td><td id="price">5gp</td></tr></table></option>
-                                  <option value="rapier"><table><tr><td>Rapier</td><td id="price">25gp</td></tr></table></option>
-                                  <option value="scimitar"><table><tr><td>Scimitar</td><td id="price">25gp</td></tr></table></option>
-                                  <option value="shortsword"><table><tr><td>Shortsword</td><td id="price">10gp</td></tr></table></option>
-                                  <option value="trident"><table><tr><td>Trident</td><td id="price">5gp</td></tr></table></option>
-                                  <option value="warpick"><table><tr><td>War Pick</td><td id="price">5gp</td></tr></table></option>
-                                  <option value="warhammer"><table><tr><td>Warhammer</td><td id="price">15gp</td></tr></table></option>
-                                  <option value="whip"><table><tr><td>Whip</td><td id="price">2gp</td></tr></table></option>
-                                  <option value="blowgun"><table><tr><td>Blowgun</td><td id="price">10gp</td></tr></table></option>
-                                  <option value="crossbowhand"><table><tr><td>Crossbow Hand</td><td id="price">75gp</td></tr></table></option>
-                                  <option value="crossbowheavy"><table><tr><td>Crossbow Heavy</td><td id="price">50gp</td></tr></table></option>
-                                  <option value="longbow"><table><tr><td>Longbow</td><td id="price">50gp</td></tr></table></option>
-                                  <option value="net"><table><tr><td>Net</td><td id="price">1gp</td></tr></table></option>
-				 </select>
-			 </p>
-			 <div style="background-color: DarkGreen">
-				 <font size="5">
-				 <h1 style = "text-align:center">Background</h1>
-				 </font>
-				 <p>
-				 <table style= "width:100%">
-				 <tr>
-				 <td>
-					<form action="">
-					<input type="checkbox" id="background" >Custom Background <button type="button" id="load" value="gold" style="width:100px; height:20px" onclick="showcustom(background)"> ok</button>
-					</form>
-					<!--  when button is clicked custom background appears otherwise it is not there.-->
-					<p></p>
-						<div id="cutom" style="visibility:canSee">
-							<textarea rows="10" cols="50" >
-							Please enter your custom background.
-							</textarea>
-						</div>
-					<p></p>
-					</td>
-					<td>
+                                <div id="cutom" style="visibility:canSee">
+                                    <textarea rows="10" cols="50" >Please enter your custom background</textarea>
+                                </div>
+                                <p></p>
+                            </td>
+                            <td>
 					Personality: 
 					<select style="width: 600px; overflow: auto">
 					  <option value="start">Please Select Personality</option>
 					  <option>Idolize a particular hero of your faith, and constantly refer to that person's deeds and example</option>
-					  <option>Can find common ground between the fiercest enemies, empathizing with them and always working toward peace.</option>
-					  <option>sees omens in every even and action. The gods try to speak to us, we just need to listen</option>
-                                          <option>Nothing can shake my optimisitc attitude.</option>
-                                          <option>Quotes (or misquotes) sacred texts and provers in almost every situation.</option>
-                                          <option>is tolerant(or intolerant) of other faiths and respect(or condemn) the worship of other gods.</option>
-                                          <option>Has enjoyed fine food, drink and high society among their temple's elite. Rough living grates on them.</option>
-                                          <option>Has spent so much time in the temple that they have little practical experience dealing with people in the outside world</option>
-                                          <option>falls in and out of love easily, and is always pursuing someone</option>
-                                          <option>has a joke for every occasion, expecially occasions where humor is inappropriate.</option>
-                                          <option>flattery is their preferred trick for getting what they want.</option>
-                                          <option>a born gambler who can't resist taking a risk for a potential payoff</option>
-                                          <option>sarcasm and insults are their weapons of choice</option>
-                                          <option>keeps multipl holy symbols on them and invoke whatever deity might come in useful at any given moment</option>
-                                          <option>pockets anything that might have some value</option>
-                                          <option>always has a plan for what to do when things go wrong</option>
-                                          <option>always calm, no matter what the situation. Never raises their voice or lets the emotions control them.</option>
-                                          <option>would rather make a new friend than a new enemy</option>
-                                          <option>incredibly slow to trust. Those who seem the fairest often have the most to hide</option>
-                                          <option>doesn't pay attention to the risks in a situation.</option>
-                                          <option>the best way to get them to do something is to tell them they can't do it</option>
-                                          <option>blows up at the slightest insult</option>
+					  <option>Can find common ground between the fiercest enemies, empathizing with them and always working toward peace</option>
+					  <option>Sees omens in every even and action. The gods try to speak to us, we just need to listen</option>
+                      <option>Nothing can shake my optimistic attitude</option>
+                      <option>Quotes (or misquotes) sacred texts and proverbs in almost every situation</option>
+                      <option>Is tolerant(or intolerant) of other faiths and respect(or condemn) the worship of other gods</option>
+                      <option>Has enjoyed fine food, drink and high society among their temple's elite. Rough living grates on them</option>
+                      <option>Has spent so much time in the temple that they have little practical experience dealing with people in the outside world</option>
+                      <option>Falls in and out of love easily, and is always pursuing someone</option>
+                      <option>Has a joke for every occasion, especially occasions where humour is inappropriate</option>
+                      <option>Flattery is their preferred trick for getting what they want.</option>
+                      <option>A born gambler who can't resist taking a risk for a potential pay off</option>
+                      <option>Sarcasm and insults are their weapons of choice</option>
+                      <option>Keeps multiple holy symbols on them and invoke whatever deity might come in useful at any given moment</option>
+                      <option>Pockets anything that might have some value</option>
+                      <option>Always has a plan for what to do when things go wrong</option>
+                      <option>Always calm, no matter what the situation. Never raises their voice or lets the emotions control them</option>
+                      <option>Would rather make a new friend than a new enemy</option>
+                      <option>Incredibly slow to trust. Those who seem the fairest often have the most to hide</option>
+                      <option>Doesn't pay attention to the risks in a situation</option>
+                      <option>The best way to get them to do something is to tell them they can't do it</option>
+                      <option>Blows up at the slightest insult</option>
 					 <</select>
 					 <p></p>
 					Ideals: 
 					<select style="width: 600px; overflow:auto">
 					  <option value="start">Please Select an Ideal</option>
-                                          <option> <b>Tradition.</b> The ancient traditions of worship and sacrifice must be preserved and upheld (Lawful)</option>
-					  <option>Charity. always tries to help those in need, no mater what the personal cost.(good)</option>
-					  <option>Change.belives they must help bring about the changes the gods are constantly working in the world. (Chaotic)</option>
-                                          <option>power. hopes to one day rise to the top of their faith's religious hierarchy. (Lawful)</option>
-                                          <option>Faith. trusts that their diety will guide my actions. the have faith that if they work hard, things will go well (Lawful)</option>
-                                          <option>Aspitation. Seeks to prove themself worthy of their god's favor by matching their actions againt his or her teachings(Any) </option>
-                                          <option>Independence. a free spirit-no on tells them what to do (Chaotic)</option>
-                                          <option>Fairness. never targets people who can't afford to lose a few coins. (Lawful)</option>
-                                          <option>Charity. distributes the money they acquired to the people who really need it.</option>
-                                          <option>Friendship. Material goods come and go. Bonds of friendship last forever. (Good)</option>
-                                          <option>Aspitation. determined to make something of themselves (Any)</option>
-                                          <option>Honor. doesn't steal from others in the trade. (Lawful)</option>
-                                          <option>Freedom. chains are ment to be broken, as are those who would forge them (Chaotic)</option>
-                                          <option>Charity. steals from the wealth so that they can help people in need (Good)</option>
-                                          <option>Greed. will do whatever it takes to become wealthy (Evil)</option>
-                                          <option>People. loyal to their friends, not to any ideals and everyone else does not matter (Neutral)</option>
-                                          <option>Redemption. there's a spark of good in everyone (Good)</option>
+                      <option>Tradition. The ancient traditions of worship and sacrifice must be preserved and upheld (Lawful)</option>
+					  <option>Charity. Always tries to help those in need, no mater what the personal cost.(good)</option>
+					  <option>Change. Believes they must help bring about the changes the gods are constantly working in the world. (Chaotic)</option>
+                      <option>power. Hopes to one day rise to the top of their faith's religious hierarchy. (Lawful)</option>
+                      <option>Faith. Trusts that their deity will guide my actions. the have faith that if they work hard, things will go well (Lawful)</option>
+                      <option>Aspiration. Seeks to prove themself worthy of their god's favour by matching their actions against his or her teachings(Any) </option>
+                      <option>Independence. A free spirit-no on tells them what to do (Chaotic)</option>
+                      <option>Fairness. Never targets people who can't afford to lose a few coins. (Lawful)</option>
+                      <option>Charity. Distributes the money they acquired to the people who really need it.</option>
+                      <option>Friendship. Material goods come and go. Bonds of friendship last forever. (Good)</option>
+                      <option>Aspiration. Determined to make something of themselves (Any)</option>
+                      <option>Honour. Doesn't steal from others in the trade. (Lawful)</option>
+                      <option>Freedom. Chains are meant to be broken, as are those who would forge them (Chaotic)</option>
+                      <option>Charity. Steals from the wealth so that they can help people in need (Good)</option>
+                      <option>Greed. Will do whatever it takes to become wealthy (Evil)</option>
+                      <option>People. Loyal to their friends, not to any ideals and everyone else does not matter (Neutral)</option>
+                      <option>Redemption. There's a spark of good in everyone (Good)</option>
 					 </select>
 					 <p></p>
 					 Bond: 
 					<select style="width: 600px; overflow: auto">
 					  <option value="start">Please Select Bond</option>
-					  <option>would die to recover an ancient relic of my faith that was lost long ago</option>
-					  <option>Hopes to someday get revenge on the corrupt temple hierarchy who branded them a heretic</option>
-					  <option>owes thei life to the priest who took them in when their parents died</option>
-                                          <option> Everthing they do is for the common people.</option>
-                                          <option> will do anything to protect the temple where they served</option>
-                                          <option> seeks to preserve a sacred text that their enemies consider heretical and seek to destroy</option>
-                                          <option>fleeced the wrong person and must work to ensure that this individual never crosses pathes with them or those they care about</option>
-                                          <option>owes everyting to their mentor - a horrible person who's probably rotting in jail somewhere.</option>
-                                          <option>has a chil somewhere out there who doesn't know them and is making the world a better place for him or her</option>
-                                          <option>comes from a noble family and one day will reclaim their lands and title from those who stole them</option>
-                                          <option>a powerful person killed someone they loved, one day soon they will get their revenge</option>
-                                          <option>swindled and ruined a person who didn't deserve it and now seeks to atone for their misdeeds but might never be able to forgive themselves</option>
-                                          <option>trying to pay off an old debt owed to a generous benefactor</option>
-                                          <option>their ill-gotten gains go to support their family</option>
-                                          
+					  <option> Would die to recover an ancient relic of my faith that was lost long ago</option>
+					  <option> Hopes to someday get revenge on the corrupt temple hierarchy who branded them a heretic</option>
+					  <option> Owes their life to the priest who took them in when their parents died</option>
+                      <option> Everything they do is for the common people</option>
+                      <option> Will do anything to protect the temple where they served</option>
+                      <option> Seeks to preserve a sacred text that their enemies consider heretical and seek to destroy</option>
+                      <option> Fleeced the wrong person and must work to ensure that this individual never crosses paths with them or those they care about</option>
+                      <option> Owes everything to their mentor - a horrible person who's probably rotting in jail somewhere</option>
+                      <option> Has a child somewhere out there who doesn't know them and is making the world a better place for him or her</option>
+                      <option> Comes from a noble family and one day will reclaim their lands and title from those who stole them</option>
+                      <option> A powerful person killed someone they loved, one day soon they will get their revenge</option>
+                      <option> Swindled and ruined a person who didn't deserve it and now seeks to atone for their misdeeds but might never be able to forgive themselves</option>
+                      <option> Trying to pay off an old debt owed to a generous benefactor</option>
+                      <option> Their ill-gotten gains go to support their family</option>                    
 					 </select>
 					 <p></p>
 					 Flaw: 
 					<select style="width: 600px; overflow: auto">
 					  <option value="start">Please Select a Flaw</option>
-					  <option>Judges others harshly, and themself even more severely</option>
-					  <option>puts too much trust in those who wield power within their temple's hierarchy</option>
-					  <option>their piety sometimes leads them to blindly trust those that profess faith in their god</option>
-                                          <option>inflexible in their thinking</option>
-                                          <option>suspicious of strangers and expect the worst of them</option>
-                                          <option>once they pick a goal, they become obsessed with it to the detriment of everything else in their life.</option>
-                                          <option>can't resist a pretty face.</option>
-                                          <option>is always in debt, spends their ill-gotten gains on decadent luxuries faster than they can bring them in</option>
-                                          <option>convinced that no one could ever fool them the way they fool others</option>
-                                          <option>too greedy for their own good. can't resist taking a risk if there's money involved</option>
-                                          <option>can't resist swindling people who are more powerful than them</option>
-                                          <option>will run to preserve their own hid if the going get tough and hates themself for it</option>
-                      
+					  <option> Judges others harshly, and themself even more severely</option>
+					  <option> Puts too much trust in those who wield power within their temple's hierarchy</option>
+					  <option> Their piety sometimes leads them to blindly trust those that profess faith in their god</option>
+                      <option> Inflexible in their thinking</option>
+                      <option> Suspicious of strangers and expect the worst of them</option>
+                      <option> Once they pick a goal, they become obsessed with it to the detriment of everything else in their life</option>
+                      <option> Can't resist a pretty face</option>
+                      <option> Is always in debt, spends their ill-gotten gains on decadent luxuries faster than they can bring them in</option>
+                      <option> Convinced that no one could ever fool them the way they fool others</option>
+                      <option> Too greedy for their own good. can't resist taking a risk if there's money involved</option>
+                      <option> Can't resist swindling people who are more powerful than them</option>
+                      <option> Will run to preserve their own hid if the going get tough and hates themself for it</option>
 					 </select>
 				 </p>
 				 <p></p>
